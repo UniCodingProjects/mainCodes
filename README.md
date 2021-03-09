@@ -1,1 +1,13 @@
 # mainCodes
+
+
+STUDY REPO
+
+YOU FAGSSS
+
+WHERERE IS GARNESHHH????
+	U+1F92A
+		U+1F92A
+			U+1F92A
+				U+1F92A
+					U+1F92A
