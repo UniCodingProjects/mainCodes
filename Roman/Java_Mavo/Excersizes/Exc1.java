@@ -26,7 +26,7 @@ public class Exc1 {
             System.out.println("GREAT SUCCESS");
         }
         else {
-            System.out.println("GREAT UNGOOOODDDD");
+            System.out.println("GREAT UNGOODD");
         }
     }
 }
