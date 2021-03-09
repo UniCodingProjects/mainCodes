@@ -30,3 +30,43 @@ public class Exc1 {
         }
     }
 }
+class TimeDisplay {
+    public static void main(String[] args) {
+        Scanner myScanner = new Scanner(System.in);
+        int hours = myScanner.nextInt();
+        int mins = myScanner.nextInt();
+        String outP = (hours < 10 ? "0" : "") + hours + ":" +  (mins < 10 ? "0" : "") + mins;
+        System.out.print(outP);
+    }
+}
+
+class Calculator {
+    public static void main(String[] args) {
+        Scanner myScanner = new Scanner(System.in);
+        System.out.println("enter 2 digits and an operator - digit operator digit, in that order");
+        double num1 = myScanner.nextDouble();
+        String operator = myScanner.next();
+        double num2 = myScanner.nextDouble();
+        switch (operator){
+            case "+":
+                System.out.printf("%f", (num1 + num2));
+                break;
+            case "*":
+                System.out.printf("%f", (num1 * num2));
+                break;
+            case ":":
+            case "/":
+                if (num2 == 0) {
+                    System.out.println("WRONG CANT DIVIDE BY 0");
+                    break;
+                }
+                System.out.printf("%f", (num1 / num2));
+                break;
+            case "-":
+                System.out.printf("%f", (num1 - num2));
+                break;
+            default:
+                System.out.println("WRONG OPERATOR");
+        }
+    }
+}
