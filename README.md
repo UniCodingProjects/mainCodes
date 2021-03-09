@@ -1,5 +1,7 @@
 # mainCodes
 
+After cloning - run from cmd: python setup.py install
+
 Visitors count:
 
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=${your.username}.${your.repo.id})

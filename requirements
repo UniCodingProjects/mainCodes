@@ -1,2 +1,4 @@
 pyrealsense2
 numpy
+pyfirmata
+PIL
