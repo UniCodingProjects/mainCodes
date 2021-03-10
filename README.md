@@ -1,5 +1,7 @@
 # mainCodes
 
+![Build](https://travis-ci.org/OpenUniCodingProjects/mainCodes.svg?branch=Master!:https://travis-ci.org/OpenUniCodingProjects/mainCodes)
+
 After cloning - run from cmd: python setup.py install
 
 Visitors count:
