@@ -77,7 +77,7 @@ class test1{
     public static void main(String[] args){
         Scanner myScanner = new Scanner(System.in);
         int num = myScanner.nextInt();
-        if ((num<1000 || num>9999) && (num<-9999 || num>-1000)){
+        if (num > 999 && num < 9999 || num < -999 && num > -9999){
             System.out.println(num);
         }
     }

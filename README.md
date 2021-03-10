@@ -1,6 +1,6 @@
 # mainCodes
 
-![Build](https://travis-ci.org/OpenUniCodingProjects/mainCodes.svg?branch=Master!:https://travis-ci.org/OpenUniCodingProjects/mainCodes)
+![Build](https://travis-ci.org/OpenUniCodingProjects/mainCodes.svg?branch=Master)
 
 After cloning - run from cmd: python setup.py install
 
