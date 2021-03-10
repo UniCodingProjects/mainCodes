@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class Exc1 {
@@ -67,6 +68,17 @@ class Calculator {
                 break;
             default:
                 System.out.println("WRONG OPERATOR");
+        }
+    }
+}
+
+
+class test1{
+    public static void main(String[] args){
+        Scanner myScanner = new Scanner(System.in);
+        int num = myScanner.nextInt();
+        if ((num<1000 || num>9999) && (num<-9999 || num>-1000)){
+            System.out.println(num);
         }
     }
 }
