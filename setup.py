@@ -1,6 +1,6 @@
 from setuptools import setup
 
-requirementsFile = open("requirements", "r")
+requirementsFile = open("requirements.txt", "r")
 requirements = requirementsFile.read().split('\n')
 
 setup(name='SETUP',

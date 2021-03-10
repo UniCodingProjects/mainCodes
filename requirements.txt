@@ -1,0 +1,7 @@
+pyrealsense2
+numpy
+pyfirmata
+pillow
+opencv-python
+pytest
+matplotlib

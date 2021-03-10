@@ -3,9 +3,9 @@ import sys
 import pkg_resources
 import json
 import time
+import multiprocessing
 
 from playsound import playsound
-import multiprocessing
 
 if 'kivy' not in pkg_resources.working_set.by_key:
     subprocess.check_call([sys.executable, "-m", "pip", "install", 'kivy'])
