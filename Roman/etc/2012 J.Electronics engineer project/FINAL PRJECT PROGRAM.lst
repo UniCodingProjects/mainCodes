@@ -1,0 +1,843 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	C:\Users\Roma\Desktop\PROJECT RFID\FINAL PRJECT PROGRAM.A51
+	Object File:	C:\Users\Roma\Desktop\PROJECT RFID\FINAL PRJECT PROGRAM.hex
+	List File:	C:\Users\Roma\Desktop\PROJECT RFID\FINAL PRJECT PROGRAM.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      0000	org 0
+    2:	  0000	02 05 23	ljmp main
+    3:		N      0003	org 3
+    4:	  0003	02 01 A2	ljmp keyb
+    5:		N      0013	org 13h
+    6:	  0013	02 01 5C	ljmp rfid
+    7:		N      2000	clcd equ 2000h
+    8:		N      2001	dlcd equ 2001h
+    9:		N      4000	adkeyb equ 4000h
+   10:		N      0040	pcount equ 40h
+   11:		N      0045	tcount equ 45h
+   12:		N      0060	ppcount equ 60h
+   13:		N      0065	ttcount equ 65h
+   14:		N      0055	newcodecount equ 55h
+   15:		N      0100	org 100h
+   16:	  0100	7F 04		delay300:	mov r7,#4h
+   17:	  0102	7E FF				dl33:mov r6,#0ffh
+   18:	  0104	7D FF				dl32:mov r5,#0ffh
+   19:	  0106	DD FE				dl31:djnz r5,dl31
+   20:	  0108	DE FA				djnz r6,dl32
+   21:	  010A	DF F6				djnz r7,dl33
+   22:	  010C	22		ret
+   23:				;------------------------------
+   24:	  010D	7F 3C		ldelay:		mov r7,#60
+   25:	  010F	7E FF				dl333:mov r6,#0ffh
+   26:	  0111	7D FF				dl322:mov r5,#0ffh
+   27:	  0113	DD FE				dl311:djnz r5,dl311
+   28:	  0115	DE FA				djnz r6,dl322
+   29:	  0117	DF F6				djnz r7,dl333
+   30:	  0119	22		ret
+   31:				;------------------------------
+   32:	  011A	7E 80		delay:	mov r6,#80h
+   33:	  011C	7D FF			d1:mov r5,#0ffh
+   34:	  011E	DD FE			djnz r5,$
+   35:	  0120	DE FA			djnz r6,d1
+   36:	  0122	22		ret
+   37:				;---------------------------
+   38:	  0123	12 01 00	initlcd:lcall delay300              ;delay configuration
+   39:	  0126	90 20 00		mov dptr,#clcd
+   40:	  0129	74 38			mov a,#38h
+   41:	  012B	F0			movx @dptr ,a
+   42:	  012C	12 01 1A		lcall delay
+   43:	  012F	74 0E			mov a,#0eh
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   44:	  0131	F0			movx @dptr ,a
+   45:	  0132	12 01 1A		lcall delay
+   46:	  0135	74 01			mov a,#01h
+   47:	  0137	F0			movx @dptr,a
+   48:	  0138	12 01 1A		lcall delay
+   49:	  013B	22			ret
+   50:				;----------------------------------------------------
+   51:	  013C	C0 83		comlcd:push dph
+   52:	  013E	C0 82		push dpl
+   53:	  0140	90 20 00	mov dptr,#clcd
+   54:	  0143	F0		movx @dptr,a
+   55:	  0144	12 01 1A	lcall delay
+   56:	  0147	D0 82		pop dpl
+   57:	  0149	D0 83		pop dph
+   58:	  014B	22		ret
+   59:				;------------------------------
+   60:	  014C	C0 83		displcd:push dph
+   61:	  014E	C0 82		push dpl
+   62:	  0150	90 20 01	mov dptr,#dlcd
+   63:	  0153	F0		movx @dptr,a
+   64:	  0154	12 01 1A	lcall delay
+   65:	  0157	D0 82		pop dpl
+   66:	  0159	D0 83		pop dph
+   67:	  015B	22		ret
+   68:				;------------------------------
+   69:	  015C	C2 AF		rfid:	clr ea
+   70:	  015E	C0 83			push dph
+   71:	  0160	C0 82			push dpl
+   72:	  0162	D2 25			setb 25h
+   73:	  0164	30 26 1E		jnb 26h,out1
+   74:	  0167	74 01			mov a,#01h
+   75:	  0169	12 01 3C		lcall comlcd
+   76:	  016C	90 04 71		mov dptr,#msg7                      ;door open
+   77:	  016F	12 05 17		lcall dispmsg
+   78:	  0172	74 C0			mov a,#0c0h             ;LCD new line
+   79:	  0174	12 01 3C		lcall comlcd
+   80:	  0177	90 04 FE		mov dptr,#msg21
+   81:	  017A	12 05 17		lcall dispmsg
+   82:	  017D	C2 91			clr p1.1
+   83:	  017F	12 01 0D		lcall ldelay
+   84:	  0182	02 03 AF		jmp fullreset
+   85:
+   86:
+   87:	  0185	74 01		out1:	mov a,#01h
+   88:	  0187	12 01 3C		lcall comlcd
+   89:	  018A	90 04 36		mov dptr,#msg2
+   90:	  018D	12 05 17	 	lcall dispmsg
+   91:	  0190	74 C0		 	mov a,#0c0h             ;LCD new line
+   92:	  0192	12 01 3C		lcall comlcd
+   93:	  0195	90 04 44		mov dptr,#msg3
+   94:	  0198	12 05 17		lcall dispmsg
+   95:	  019B	D0 82		out2:	pop dpl
+   96:	  019D	D0 83			pop dph
+   97:	  019F	D2 AF			setb ea
+   98:	  01A1	32			reti
+   99:
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+ Line  I  Addr  Code            Source
+
+  100:
+  101:	  01A2	C2 AF		keyb:	clr ea                            ;keyboard config
+  102:	  01A4	C0 83			push dph
+  103:	  01A6	C0 82			push dpl
+  104:				;----------------------------
+  105:	  01A8	90 40 00		mov dptr,#adkeyb
+  106:	  01AB	E0			movx a,@dptr
+  107:	  01AC	54 0F			anl a,#0fh
+  108:	  01AE	90 05 08		mov dptr,#table               ;keyboard keys matching config
+  109:	  01B1	93		        movc a,@a+dptr
+  110:	  01B2	20 29 6A	        jb 29h, acheckx
+  111:	  01B5	20 28 64	        jb 28h, newcodex
+  112:	  01B8	20 23 5B	        jb 23h, beinaim 		;jump to alarm deactivation subroutin
+  113:	  01BB	F5 46			mov 46h,a
+  114:	  01BD	74 2A			mov a,#2ah 			;(*) config
+  115:	  01BF	12 01 4C		lcall displcd
+  116:	  01C2	E5 46			mov a,46h
+  117:				;------------------------------
+  118:	  01C4			codecheck:
+  119:	  01C4			press1:
+  120:	  01C4	A8 40			mov r0,pcount;4
+  121:	  01C6	B8 04 08		cjne r0,#4, press2
+  122:	  01C9	15 40			dec pcount
+  123:	  01CB	B5 70 45		cjne a,70h, mistakex
+  124:	  01CE	02 04 1E		jmp sof
+  125:	  01D1			press2:
+  126:	  01D1	A8 40			mov r0,pcount;3
+  127:	  01D3	B8 03 08		cjne r0,#3, press3
+  128:	  01D6	15 40			dec pcount
+  129:	  01D8	B5 71 38		cjne a,71h, mistakex
+  130:	  01DB	02 04 1E		jmp sof
+  131:	  01DE			press3:
+  132:	  01DE	A8 40			mov r0,pcount;2
+  133:	  01E0	B8 02 08		cjne r0,#2, press4
+  134:	  01E3	15 40			dec pcount;1
+  135:	  01E5	B5 72 2B		cjne a,72h, mistakex
+  136:	  01E8	02 04 1E		jmp sof
+  137:	  01EB			press4:
+  138:	  01EB	15 40			dec pcount;0
+  139:	  01ED	B5 73 23		cjne a,73h, mistakex
+  140:	  01F0	30 22 6E		jnb 22h, success
+  141:	  01F3	02 02 53		jmp mistake
+  142:	  01F6			alarm:
+  143:	  01F6	74 01		        mov a,#01h 		;LCD clear
+  144:	  01F8	12 01 3C		lcall comlcd
+  145:	  01FB	90 04 49		mov dptr,#msg4
+  146:	  01FE	12 05 17	 	lcall dispmsg
+  147:	  0201	74 C0		 	mov a,#0c0h             ;LCD new line
+  148:	  0203	12 01 3C		lcall comlcd
+  149:	  0206	90 04 E1		mov dptr,#msg18
+  150:	  0209	12 05 17		lcall dispmsg
+  151:	  020C	D2 90			setb p1.0
+  152:	  020E	D2 23			setb 23h
+  153:	  0210	02 04 1E		jmp sof
+  154:	  0213			mistakex:
+  155:	  0213	02 02 53	jmp mistake
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+ Line  I  Addr  Code            Source
+
+  156:
+  157:	  0216			beinaim:
+  158:	  0216	02 03 3C	jmp codecheck2
+  159:
+  160:	  0219			sofy:
+  161:	  0219	02 03 01	jmp sofz
+  162:
+  163:	  021C			newcodex:
+  164:	  021C	02 03 04	jmp newcode
+  165:
+  166:				;sofrfidy:
+  167:				;jmp sofrfidx
+  168:
+  169:				;fullresetx:
+  170:				;jmp fullreset
+  171:
+  172:	  021F			acheckx:
+  173:	  021F	02 02 A8	jmp acheck
+  174:
+  175:	  0222			reset1:
+  176:	  0222	74 01		        mov a,#01h 		;LCD clear
+  177:	  0224	12 01 3C		lcall comlcd
+  178:	  0227	90 04 56		mov dptr,#msg5
+  179:	  022A	12 05 17		lcall dispmsg
+  180:	  022D	12 01 00		lcall delay300
+  181:	  0230	12 01 00		lcall delay300
+  182:	  0233	74 01			mov a,#01h             ;LCD clear
+  183:	  0235	12 01 3C		lcall comlcd
+  184:	  0238	90 04 36		mov dptr,#msg2
+  185:	  023B	12 05 17	 	lcall dispmsg
+  186:	  023E	74 C0		 	mov a,#0c0h             ;LCD new line
+  187:	  0240	12 01 3C		lcall comlcd
+  188:	  0243	90 04 44		mov dptr,#msg3
+  189:	  0246	12 05 17		lcall dispmsg
+  190:	  0249	C2 22			clr 22h
+  191:	  024B	15 45			dec tcount
+  192:	  024D	75 40 04		mov pcount,#4
+  193:	  0250	02 04 1E		jmp sof
+  194:
+  195:	  0253			mistake:
+  196:	  0253	D2 22			setb 22h
+  197:	  0255	A8 40			mov r0,pcount
+  198:	  0257	B8 00 4B		cjne r0,#0,sofa
+  199:	  025A	A9 45			mov r1,tcount
+  200:	  025C	B9 00 C3		cjne r1,#0h,reset1
+  201:	  025F	80 95			jmp alarm
+  202:
+  203:				;sofrfidx:
+  204:				;jmp sofrfid
+  205:
+  206:
+  207:
+  208:	  0261			success:
+  209:	  0261	D2 29			setb 29h
+  210:	  0263	D2 26			setb 26h
+  211:	  0265	74 01			mov a,#01h        ;LCD Clear
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 5
+
+
+
+ Line  I  Addr  Code            Source
+
+  212:	  0267	12 01 3C		lcall comlcd
+  213:	  026A	90 04 7F		mov dptr,#msg8                   ;press A to open door
+  214:	  026D	12 05 17		lcall dispmsg
+  215:	  0270	74 C0			mov a,#0c0h
+  216:	  0272	12 01 3C		lcall comlcd
+  217:	  0275	90 04 AA		mov dptr,#msg11
+  218:	  0278	12 05 17		lcall dispmsg
+  219:	  027B	12 01 00		lcall delay300
+  220:	  027E	12 01 00		lcall delay300
+  221:	  0281	74 01			mov a,#01h        ;LCD Clear
+  222:	  0283	12 01 3C		lcall comlcd
+  223:	  0286	90 04 8C		mov dptr,#msg9           	;press B to change code
+  224:	  0289	12 05 17		lcall dispmsg
+  225:	  028C	74 C0			mov a,#0c0h
+  226:	  028E	12 01 3C		lcall comlcd
+  227:	  0291	90 04 B3		mov dptr,#msg12
+  228:	  0294	12 05 17		lcall dispmsg
+  229:	  0297	12 01 00		lcall delay300
+  230:	  029A	12 01 00		lcall delay300
+  231:	  029D	74 01			mov a,#01h        ;LCD Clear
+  232:	  029F	12 01 3C		lcall comlcd
+  233:	  02A2	02 04 1E		jmp sof
+  234:	  02A5			sofa:
+  235:	  02A5	02 03 01	jmp sofz
+  236:
+  237:	  02A8			acheck:
+  238:	  02A8	B4 0A 11		cjne a,#0ah,bcheck
+  239:	  02AB	C2 29			clr 29h
+  240:	  02AD	20 25 2A		jb 25h,open
+  241:	  02B0	90 04 63		mov dptr,#msg6
+  242:	  02B3	12 05 17		lcall dispmsg
+  243:	  02B6	02 02 D7	        jmp rfidcheck
+  244:	  02B9	02 04 1E	        jmp sof
+  245:
+  246:	  02BC			bcheck:
+  247:	  02BC	B4 0B 42	 	cjne a,#0bh,sofz
+  248:	  02BF	C2 29		 	clr 29h
+  249:	  02C1	D2 28		 	setb 28h
+  250:	  02C3	90 04 9B	 	mov dptr,#msg10              ;enter new code
+  251:	  02C6	12 05 17		lcall dispmsg
+  252:	  02C9	74 C0			mov a,#0c0h        ;LCD next line
+  253:	  02CB	12 01 3C		lcall comlcd
+  254:	  02CE	90 04 44		mov dptr,#msg3
+  255:	  02D1	12 05 17		lcall dispmsg
+  256:	  02D4	02 04 1E		jmp sof
+  257:
+  258:	  02D7			rfidcheck:
+  259:	  02D7	30 25 27		jnb 25h,sofz                       ;check for rfid key
+  260:	  02DA	90 04 71	open:	mov dptr,#msg7                      ;door open
+  261:	  02DD	12 05 17		lcall dispmsg
+  262:	  02E0	74 C0			mov a,#0c0h             ;LCD new line
+  263:	  02E2	12 01 3C		lcall comlcd
+  264:	  02E5	90 04 FE		mov dptr,#msg21
+  265:	  02E8	12 05 17		lcall dispmsg
+  266:	  02EB	C2 91			clr p1.1
+  267:	  02ED	12 01 0D		lcall ldelay
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 6
+
+
+
+ Line  I  Addr  Code            Source
+
+  268:	  02F0	02 03 AF		jmp fullreset
+  269:
+  270:
+  271:	  02F3			sofrfid:
+  272:	  02F3	74 01			mov a,#01h        ;LCD Clear
+  273:	  02F5	12 01 3C		lcall comlcd
+  274:	  02F8	90 04 63		mov dptr,#msg6
+  275:	  02FB	12 05 17		lcall dispmsg
+  276:	  02FE	02 03 01		jmp sofz
+  277:	  0301			sofz:
+  278:	  0301	02 03 83	jmp sofx
+  279:
+  280:
+  281:	  0304			newcode:
+  282:	  0304	F5 46			mov 46h,a
+  283:	  0306	74 2A			mov a,#2ah 			;(*) config
+  284:	  0308	12 01 4C		lcall displcd
+  285:	  030B	E5 46			mov a,46h
+  286:	  030D			press111:
+  287:	  030D	A8 55			mov r0,newcodecount
+  288:	  030F	B8 04 07		cjne r0,#4, press222
+  289:	  0312	15 55			dec newcodecount
+  290:	  0314	F5 70			mov 70h,a
+  291:	  0316	02 04 1E		jmp sof
+  292:	  0319			press222:
+  293:	  0319	A8 55			mov r0,newcodecount
+  294:	  031B	B8 03 07		cjne r0,#3, press333
+  295:	  031E	15 55			dec newcodecount
+  296:	  0320	F5 71			mov 71h,a
+  297:	  0322	02 04 1E		jmp sof
+  298:	  0325			press333:
+  299:	  0325	A8 55			mov r0,newcodecount
+  300:	  0327	B8 02 07		cjne r0,#2, press444
+  301:	  032A	15 55			dec newcodecount
+  302:	  032C	F5 72			mov 72h,a
+  303:	  032E	02 04 1E		jmp sof
+  304:	  0331			press444:
+  305:	  0331	15 40			dec pcount
+  306:	  0333	F5 73			mov 73h,a
+  307:	  0335	C2 28			clr 28h
+  308:	  0337	C2 29			clr 29h
+  309:	  0339	02 03 AF		jmp fullreset
+  310:				;-----------------------------------------------
+  311:	  033C			codecheck2:
+  312:	  033C	F5 46			mov 46h,a
+  313:	  033E	74 2A			mov a,#2ah 			;(*) config
+  314:	  0340	12 01 4C		lcall displcd
+  315:	  0343	E5 46			mov a,46h
+  316:					                   ;alarm de activation codecheck
+  317:	  0345			press11:
+  318:	  0345	A8 60			mov r0,ppcount;4
+  319:	  0347	B8 04 08		cjne r0,#4, press22
+  320:	  034A	15 60			dec ppcount
+  321:	  034C	B4 09 28		cjne a,#9, mistake2
+  322:	  034F	02 04 1E		jmp sof
+  323:	  0352			press22:
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 7
+
+
+
+ Line  I  Addr  Code            Source
+
+  324:	  0352	A8 60			mov r0,ppcount;3
+  325:	  0354	B8 03 08		cjne r0,#3, press33
+  326:	  0357	15 60			dec ppcount
+  327:	  0359	B4 08 1B		cjne a,#8, mistake2
+  328:	  035C	02 04 1E		jmp sof
+  329:	  035F			press33:
+  330:	  035F	A8 60			mov r0,ppcount;2
+  331:	  0361	B8 02 08		cjne r0,#2, press44
+  332:	  0364	15 60			dec ppcount;1
+  333:	  0366	B4 07 0E		cjne a,#7, mistake2
+  334:	  0369	02 04 1E		jmp sof
+  335:	  036C			press44:
+  336:	  036C	15 60			dec ppcount;0
+  337:	  036E	B4 06 06		cjne a,#6, mistake2
+  338:	  0371	30 24 12		jnb 24h, alarmmsg
+  339:	  0374	02 04 1E		jmp sof
+  340:
+  341:	  0377			mistake2:
+  342:	  0377	D2 24			setb 24h
+  343:	  0379	A8 60			mov r0,ppcount
+  344:	  037B	B8 00 05		cjne r0,#0,sofx
+  345:	  037E	A9 65			mov r1,ttcount
+  346:	  0380	B9 00 22		cjne r1,#0h,reset2
+  347:	  0383			sofx:
+  348:	  0383	02 04 1E	jmp sof
+  349:
+  350:	  0386			alarmmsg:
+  351:	  0386	74 01			mov a,#01h
+  352:	  0388	12 01 3C		lcall comlcd
+  353:	  038B	90 04 E7		mov dptr,#msg19
+  354:	  038E	12 05 17		lcall dispmsg
+  355:	  0391	74 C0			mov a,#0c0h             ;LCD new line
+  356:	  0393	12 01 3C		lcall comlcd
+  357:	  0396	90 04 F1		mov dptr,#msg20
+  358:	  0399	12 05 17		lcall dispmsg
+  359:	  039C	12 01 00		lcall delay300
+  360:	  039F	12 01 1A		lcall delay
+  361:	  03A2	02 03 AF		jmp fullreset
+  362:
+  363:	  03A5			reset2:
+  364:	  03A5	C2 24			clr 24h
+  365:	  03A7	15 65			dec ttcount
+  366:	  03A9	75 60 04		mov ppcount,#4
+  367:	  03AC	02 04 1E		jmp sof
+  368:
+  369:	  03AF			fullreset:           ;alarm deactivation sequence
+  370:	  03AF	C2 22			clr 22h
+  371:	  03B1	C2 23			clr 23h
+  372:	  03B3	C2 24			clr 24h
+  373:	  03B5	C2 25			clr 25h
+  374:	  03B7	C2 26			clr 26h
+  375:	  03B9	C2 28			clr 28h
+  376:	  03BB	C2 29			clr 29h
+  377:	  03BD	C2 90			clr p1.0
+  378:	  03BF	D2 91			setb P1.1
+  379:	  03C1	75 40 04		mov pcount,#4 ;presscounter
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 8
+
+
+
+ Line  I  Addr  Code            Source
+
+  380:	  03C4	75 45 02		mov tcount,#2 ;try counter
+  381:	  03C7	75 60 04		mov ppcount,#4 ;alarm deactivate press counter
+  382:	  03CA	75 65 64		mov ttcount,#100 ;alarm deactivate try counter
+  383:	  03CD	75 55 04		mov newcodecount,#4 ;press count for new code
+  384:	  03D0	74 01			mov a,#01h
+  385:	  03D2	12 01 3C		lcall comlcd
+  386:	  03D5	90 04 28		mov dptr,#msg1
+  387:	  03D8	12 05 17		lcall dispmsg
+  388:	  03DB	74 C0			mov a,#0c0h             ;LCD new line
+  389:	  03DD	12 01 3C		lcall comlcd
+  390:	  03E0	12 01 00		lcall delay300
+  391:	  03E3	12 01 00		lcall delay300
+  392:	  03E6	74 01			mov a,#01h		;LCD clear
+  393:	  03E8	12 01 3C		lcall comlcd
+  394:	  03EB	90 04 C9		mov dptr,#msg15
+  395:	  03EE	12 05 17		lcall dispmsg
+  396:	  03F1	74 C0			mov a,#0c0h             ;LCD new line
+  397:	  03F3	12 01 3C		lcall comlcd
+  398:	  03F6	90 04 44		mov dptr,#msg3
+  399:	  03F9	12 05 17		lcall dispmsg
+  400:	  03FC	90 04 D9		mov dptr,#msg16
+  401:	  03FF	12 05 17		lcall dispmsg
+  402:	  0402	12 01 00		lcall delay300
+  403:	  0405	12 01 00		lcall delay300
+  404:	  0408	74 01			mov a,#01h		;LCD clear
+  405:	  040A	12 01 3C		lcall comlcd
+  406:	  040D	90 04 36		mov dptr,#msg2
+  407:	  0410	12 05 17	 	lcall dispmsg
+  408:	  0413	74 C0		 	mov a,#0c0h             ;LCD new line
+  409:	  0415	12 01 3C		lcall comlcd
+  410:	  0418	90 04 44		mov dptr,#msg3
+  411:	  041B	12 05 17		lcall dispmsg
+  412:
+  413:	  041E			sof:
+  414:	  041E	D0 82			pop dpl
+  415:	  0420	D0 83			pop dph
+  416:	  0422	30 B2 FD		jnb p3.2,$
+  417:	  0425	D2 AF			setb ea
+  418:	  0427	32			reti
+  419:				;-------------------------
+  420:	  0428	20 20 57 65	msg1:DB '  Welcome  To',0ffh
+	  042C	6C 63 6F 6D
+	  0430	65 20 20 54
+	  0434	6F FF
+  421:	  0436	20 20 20 45	msg2:DB '   Enter Code',0ffh
+	  043A	6E 74 65 72
+	  043E	20 43 6F 64
+	  0442	65 FF
+  422:	  0444	20 20 20 20	msg3:DB '    ',0ffh
+	  0448	FF
+  423:	  0449	20 20 20 2D	msg4:DB '   -=Alarm=-',0ffh
+	  044D	3D 41 6C 61
+	  0451	72 6D 3D 2D
+	  0455	FF
+  424:	  0456	20 20 20 54	msg5:DB '   Try Again',0ffh
+	  045A	72 79 20 41
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 9
+
+
+
+ Line  I  Addr  Code            Source
+
+	  045E	67 61 69 6E
+	  0462	FF
+  425:	  0463	50 61 73 73	msg6:DB 'Pass RFID key',0ffh
+	  0467	20 52 46 49
+	  046B	44 20 6B 65
+	  046F	79 FF
+  426:	  0471	50 6C 65 61	msg7:DB 'Please Enter ',0ffh
+	  0475	73 65 20 45
+	  0479	6E 74 65 72
+	  047D	20 FF
+  427:	  047F	54 6F 20 4F	msg8:DB 'To Open Door',0ffh
+	  0483	70 65 6E 20
+	  0487	44 6F 6F 72
+	  048B	FF
+  428:	  048C	54 4F 20 43	msg9:DB 'TO Change Code',0ffh
+	  0490	68 61 6E 67
+	  0494	65 20 43 6F
+	  0498	64 65 FF
+  429:	  049B	45 6E 74 65	msg10:DB 'Enter NEW code',0ffh
+	  049F	72 20 4E 45
+	  04A3	57 20 63 6F
+	  04A7	64 65 FF
+  430:	  04AA	50 72 65 73	msg11:DB 'Press A ',0ffh
+	  04AE	73 20 41 20
+	  04B2	FF
+  431:	  04B3	50 72 65 73	msg12:DB 'Press B',0ffh
+	  04B7	73 20 42 FF
+  432:	  04BB	45 6E 74 65	msg13:DB 'Enter Code',0ffh
+	  04BF	72 20 43 6F
+	  04C3	64 65 FF
+  433:	  04C6	20 20 FF	msg14:DB '  ',0ffh
+  434:	  04C9	52 6F 6D 61	msg15:DB 'Roman Rapoports',0ffh
+	  04CD	6E 20 52 61
+	  04D1	70 6F 70 6F
+	  04D5	72 74 73 FF
+  435:	  04D9	50 72 6F 6A	msg16:DB 'Project',0ffh
+	  04DD	65 63 74 FF
+  436:				;msg17:DB '',0ffh
+  437:	  04E1	20 20 20 20	msg18:DB '     ',0ffh
+	  04E5	20 FF
+  438:	  04E7	20 20 20 20	msg19:DB '    Alarm',0ffh
+	  04EB	41 6C 61 72
+	  04EF	6D FF
+  439:	  04F1	20 44 65 61	msg20:DB ' Deactivated',0ffh
+	  04F5	63 74 69 76
+	  04F9	61 74 65 64
+	  04FD	FF
+  440:	  04FE	20 20 20 20	msg21:DB '    house',0ffh
+	  0502	68 6F 75 73
+	  0506	65 FF
+  441:	  0508	01 02 03 0A	table: DB 1,2,3,0ah,4,5,6,0bh,7,8,9,0ch,0,23h,0dh   ;keyboard keys config
+	  050C	04 05 06 0B
+	  0510	07 08 09 0C
+	  0514	00 23 0D
+  442:				;----------------------
+  443:	  0517	E4			dispmsg:clr a
+
+ASEM-51 V1.3                                        Copyright (c) 2002 by W.W. Heinz                                         PAGE 10
+
+
+
+ Line  I  Addr  Code            Source
+
+  444:	  0518	93			movc a,@a+dptr
+  445:	  0519	B4 FF 01		cjne a,#0ffh,nextch
+  446:	  051C	22			ret
+  447:	  051D	12 01 4C		nextch:lcall displcd
+  448:	  0520	A3			inc dptr
+  449:	  0521	80 F4			jmp dispmsg
+  450:
+  451:	  0523	C2 AF		main:	clr ea
+  452:	  0525	12 01 23		lcall initlcd
+  453:	  0528	C2 90			clr p1.0 				   ;alarm off
+  454:	  052A	D2 91			setb p1.1                                 ;lock locked
+  455:	  052C	90 04 28		mov dptr,#msg1                                    ;;;Messages at begginign starts here !!!!!
+				!!
+  456:	  052F	12 05 17		lcall dispmsg
+  457:	  0532	12 01 00		lcall delay300
+  458:	  0535	12 01 00		lcall delay300
+  459:	  0538	74 01			mov a,#01h		;LCD clear
+  460:	  053A	12 01 3C		lcall comlcd
+  461:	  053D	90 04 C9		mov dptr,#msg15
+  462:	  0540	12 05 17		lcall dispmsg
+  463:	  0543	74 C0			mov a,#0c0h             ;LCD new line
+  464:	  0545	12 01 3C		lcall comlcd
+  465:	  0548	90 04 44		mov dptr,#msg3
+  466:	  054B	12 05 17		lcall dispmsg
+  467:	  054E	90 04 D9		mov dptr,#msg16
+  468:	  0551	12 05 17		lcall dispmsg
+  469:	  0554	12 01 00		lcall delay300
+  470:	  0557	12 01 00		lcall delay300
+  471:	  055A	74 01			mov a,#01h		;LCD clear
+  472:	  055C	12 01 3C		lcall comlcd                             ;;;Messages at begginign Ends here !!!!!!!
+  473:				;--------------------------
+  474:				;hagdaratcod:
+  475:	  055F	75 70 01		mov 70h,#1             ;password config (Defualt password - can be changed in future)
+  476:	  0562	75 71 02		mov 71h,#2
+  477:	  0565	75 72 03		mov 72h,#3
+  478:	  0568	75 73 04		mov 73h,#4
+  479:					;---------
+  480:	  056B	75 47 09		mov 47h,#9		;alarm deactivate password config
+  481:	  056E	75 48 08		mov 48h,#8
+  482:	  0571	75 49 07		mov 49h,#7
+  483:	  0574	75 50 06		mov 50h,#6
+  484:					;---------   start of clears
+  485:	  0577	C2 22			clr 22h
+  486:	  0579	C2 23			clr 23h
+  487:	  057B	C2 24			clr 24h
+  488:	  057D	C2 25			clr 25h
+  489:	  057F	C2 26			clr 26h
+  490:	  0581	C2 28			clr 28h
+  491:	  0583	C2 29			clr 29h
+  492:
+  493:				;'enter code'                            ;;;;Msges that stays for code inputs starts
+  494:	  0585	90 04 36	 	mov dptr,#msg2
+  495:	  0588	12 05 17	 	lcall dispmsg
+  496:				 	;mov a,#01h
+  497:	  058B	74 C0		 	mov a,#0c0h             ;LCD new line
+  498:	  058D	12 01 3C		lcall comlcd
+
+ASEM-51 V1.3                                        Copyright (c) 2002 by W.W. Heinz                                         PAGE 11
+
+
+
+ Line  I  Addr  Code            Source
+
+  499:	  0590	90 04 44		mov dptr,#msg3
+  500:	  0593	12 05 17		lcall dispmsg                          ;;;;Msges that stays for code inputs ends
+  501:				;sof 'enter code'
+  502:	  0596	75 40 04		mov pcount,#4 ;presscounter
+  503:	  0599	75 45 02		mov tcount,#2 ;try counter
+  504:	  059C	75 60 04		mov ppcount,#4 ;alarm deactivate press counter
+  505:	  059F	75 65 64		mov ttcount,#100 ;alarm deactivate try counter
+  506:	  05A2	75 55 04		mov newcodecount,#4 ;press count for new code
+  507:	  05A5	75 A8 85		mov ie,#85h
+  508:	  05A8	80 FE			jmp $
+  509:				END
+
+
+
+
+
+                     register banks used:  ---
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                        Copyright (c) 2002 by W.W. Heinz                                         PAGE 12
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+ACHECK				  CODE	    02A8	 237
+ACHECKX				  CODE	    021F	 172
+ADKEYB				  NUMBER    4000	   9
+ALARM				  CODE	    01F6	 142
+ALARMMSG			  CODE	    0386	 350
+B				  DATA	      F0
+BCHECK				  CODE	    02BC	 246
+BEINAIM				  CODE	    0216	 157
+CLCD				  NUMBER    2000	   7
+CODECHECK			  CODE	    01C4	 118
+CODECHECK2			  CODE	    033C	 311
+COMLCD				  CODE	    013C	  51
+CY				  BIT	      D7
+D1				  CODE	    011C	  33
+DELAY				  CODE	    011A	  32
+DELAY300			  CODE	    0100	  16
+DISPLCD				  CODE	    014C	  60
+DISPMSG				  CODE	    0517	 443
+DL31				  CODE	    0106	  19
+DL311				  CODE	    0113	  27
+DL32				  CODE	    0104	  18
+DL322				  CODE	    0111	  26
+DL33				  CODE	    0102	  17
+DL333				  CODE	    010F	  25
+DLCD				  NUMBER    2001	   8
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+FULLRESET			  CODE	    03AF	 369
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INITLCD				  CODE	    0123	  38
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+
+ASEM-51 V1.3                                        Copyright (c) 2002 by W.W. Heinz                                         PAGE 13
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+KEYB				  CODE	    01A2	 101
+LDELAY				  CODE	    010D	  24
+MAIN				  CODE	    0523	 451
+MISTAKE				  CODE	    0253	 195
+MISTAKE2			  CODE	    0377	 341
+MISTAKEX			  CODE	    0213	 154
+MSG1				  CODE	    0428	 420
+MSG10				  CODE	    049B	 429
+MSG11				  CODE	    04AA	 430
+MSG12				  CODE	    04B3	 431
+MSG13				  CODE	    04BB	 432
+MSG14				  CODE	    04C6	 433
+MSG15				  CODE	    04C9	 434
+MSG16				  CODE	    04D9	 435
+MSG18				  CODE	    04E1	 437
+MSG19				  CODE	    04E7	 438
+MSG2				  CODE	    0436	 421
+MSG20				  CODE	    04F1	 439
+MSG21				  CODE	    04FE	 440
+MSG3				  CODE	    0444	 422
+MSG4				  CODE	    0449	 423
+MSG5				  CODE	    0456	 424
+MSG6				  CODE	    0463	 425
+MSG7				  CODE	    0471	 426
+MSG8				  CODE	    047F	 427
+MSG9				  CODE	    048C	 428
+NEWCODE				  CODE	    0304	 281
+NEWCODECOUNT			  NUMBER    0055	  14
+NEWCODEX			  CODE	    021C	 163
+NEXTCH				  CODE	    051D	 447
+OPEN				  CODE	    02DA	 260
+OUT1				  CODE	    0185	  87
+OUT2				  CODE	    019B	  95
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PCOUNT				  NUMBER    0040	  10
+PPCOUNT				  NUMBER    0060	  12
+PRESS1				  CODE	    01C4	 119
+PRESS11				  CODE	    0345	 317
+PRESS111			  CODE	    030D	 286
+PRESS2				  CODE	    01D1	 125
+PRESS22				  CODE	    0352	 323
+PRESS222			  CODE	    0319	 292
+PRESS3				  CODE	    01DE	 131
+PRESS33				  CODE	    035F	 329
+PRESS333			  CODE	    0325	 298
+PRESS4				  CODE	    01EB	 137
+PRESS44				  CODE	    036C	 335
+PRESS444			  CODE	    0331	 304
+PS				  BIT	      BC
+PSW				  DATA	      D0
+
+ASEM-51 V1.3                                        Copyright (c) 2002 by W.W. Heinz                                         PAGE 14
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+RESET1				  CODE	    0222	 175
+RESET2				  CODE	    03A5	 363
+RFID				  CODE	    015C	  69
+RFIDCHECK			  CODE	    02D7	 258
+RI				  BIT	      98
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SOF				  CODE	    041E	 413
+SOFA				  CODE	    02A5	 234
+SOFRFID				  CODE	    02F3	 271
+SOFX				  CODE	    0383	 347
+SOFY				  CODE	    0219	 160
+SOFZ				  CODE	    0301	 277
+SP				  DATA	      81
+SUCCESS				  CODE	    0261	 208
+T0				  BIT	      B4
+T1				  BIT	      B5
+TABLE				  CODE	    0508	 441
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TCOUNT				  NUMBER    0045	  11
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TTCOUNT				  NUMBER    0065	  13
+TXD				  BIT	      B1
+WR				  BIT	      B6
