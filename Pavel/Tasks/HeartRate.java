@@ -1,7 +1,9 @@
-import java.util.Scanner;
+/* The following program prints the wanted heart rate of a user during exercise based on entered age */
 
-public class HeartRate {
-    public static void main(String[] args){
+import java.util.Scanner; // Import Scanner class
+
+public class HeartRate { // Defines a new class called HeartRate
+    public static void main(String[] args){ // Creates a method called main
         final int CONST = 220; // Defining constant value for maximal heart rate
         final int High = 85; // Defining constant value for upper limit
         final int Low = 65; // Defining constant value of lower limit
