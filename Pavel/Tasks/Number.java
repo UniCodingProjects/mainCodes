@@ -43,7 +43,7 @@ public class Number { // Defines a new class called Number
                         System.out.println("The result is: \n" + "-" + ones + tens + hundreds + thousands); // Print the digits of the selected number in reversed order and change the sign
                     }
                     break;
-            }
-        }
-    }
-}
+            } // End of switch statement
+        } // End of condition
+    } // End of method main
+} // End of class Number
