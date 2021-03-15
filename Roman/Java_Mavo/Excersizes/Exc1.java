@@ -80,5 +80,7 @@ class test1{
         if (num > 999 && num < 9999 || num < -999 && num > -9999){
             System.out.println(num);
         }
+        Calculator calc = new Calculator();
     }
 }
+
