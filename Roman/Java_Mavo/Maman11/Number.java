@@ -22,20 +22,23 @@ public class Number {
                 int hundreds = userInput / 100 % 10; // get the hundredth digit
                 int tens = userInput / 10 % 10; // get the tenth digit
                 int ones = userInput % 10; // get the first digit
+                int flipResult = ones*1000 + tens*100 + hundreds*10 + thousands;
                 if (userInput < 0){
                     thousands = thousands*(-1);
                     hundreds = hundreds*(-1);
                     tens = tens*(-1);
+                    ones = ones*(-1);
+                    flipResult = (-1)*(ones*1000 + tens*100 + hundreds*10 + thousands);
                 }
                 switch (userChoice){
                     case 1:
                         System.out.println("The result is: "+ userInput*(-1)); // print the number with reversed sign
                         break;
                     case 2:
-                        System.out.print("The result is: "+ ones + tens + hundreds + thousands); // print the reversed number
+                        System.out.print("The result is: "+ flipResult); // print the reversed number
                         break;
                     case 3:
-                        System.out.print("The result is: "+ (-1)*ones + tens + hundreds + thousands); // print the reversed number with reversed sign
+                        System.out.print("The result is: "+ (-1)*flipResult); // print the reversed number with reversed sign
                         break;
                 }
             }
