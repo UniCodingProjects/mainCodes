@@ -1,9 +1,10 @@
-/**
- * The following program asks the user to select a 4 digit number and prints out the number
- * with an opposite sign, Reversed, Or reversed with the opposite sign based on the user input  */
-
 import java.util.Scanner; // Import Scanner class
-
+/** The following program asks the user to select a 4 digit number and prints out a different variation of the number
+  * based on the user's input:
+  * 1. Prints the number with the opposite sign.
+  * 2. Prints the number in reversed order.
+  * 3. Prints the number with the opposite sign and in reversed order.
+  * Any illegal input will terminate the program */
 public class Number { // Defines a new class called Number
     public static void main(String[] args) { // Creates a method called main
         Scanner scan = new Scanner(System.in); // Creates a new Scanner instance for standard input
@@ -17,7 +18,7 @@ public class Number { // Defines a new class called Number
             int hundreds = (num / 100) % 10; // Adds the hundreds digit into a new integer "hundreds"
             int tens = (num / 10) % 10; // Adds the tens digit into a new integer "tens"
             int ones = num % 10; // Adds the ones digit into a new integer "ones"
-            int reversed = ones*1000 + tens*100 + hundreds*10 + thousands;
+            int reversed = ones*1000 + tens*100 + hundreds*10 + thousands; // Adds all the numbers in reversed order into a new integer called "reversed"
             System.out.println("1. Reverse sign.\n" +
                                "2. Reverse number.\n" +
                                "3. Reverse sign and number.\n" +
