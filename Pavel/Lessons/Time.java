@@ -22,7 +22,11 @@ public class Time {
     public int getMinute() {
         return _minute;
     }
-
+    //copy constructor
+    public Time(Time t){
+        _hour = t._hour;
+        _minute = t._minute;
+    }
     // setters
     public void setHour(int h) {
         if (0 <= h && h <= 23) {
