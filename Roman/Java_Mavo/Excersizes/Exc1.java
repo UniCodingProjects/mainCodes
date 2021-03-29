@@ -1,6 +1,7 @@
 import java.text.NumberFormat;
 import java.util.Scanner;
 
+
 public class Exc1 {
     public static void main(String[] args){
         Scanner myScanner = new Scanner(System.in);
@@ -28,6 +29,7 @@ public class Exc1 {
         }
         else {
             System.out.println("GREAT UNGOODD");
+
         }
     }
 }

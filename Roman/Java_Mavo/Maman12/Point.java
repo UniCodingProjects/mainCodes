@@ -36,6 +36,7 @@ public class Point {
     public String toString(){
         return ""+'('+_x+','+_y+')';
     }
+
     public boolean equals(Point other){
         if (other._x == this._x && other._y == this._y){
             return true;
@@ -43,23 +44,23 @@ public class Point {
         return false;
     }
     public boolean isAbove(Point other){
-        if (other._y > this._y){
+        if (other._y < this._y){
             return true;
         }
         return false;
     }
     public boolean isUnder(Point other){
-        return !isAbove(other);
+        return other.isAbove(this);
     }
 
     public boolean isLeft(Point other){
-        if (other._x < this._x){
+        if (other._x > this._x){
             return true;
         }
         return false;
     }
     public boolean isRight(Point other){
-        return !isLeft(other);
+        return other.isLeft(this);
     }
 
     public double distance (Point p){
@@ -82,12 +83,12 @@ public class Point {
         return 0;
     }
     public static void main(String[] args){
-        Point myPoint = new Point(2.0, -3.0);
+        Point myPoint = new Point(2.0, 3.5);
         System.out.println(myPoint.toString());
         myPoint.setX(1.5);
 //        myPoint.setY(1.5);
         System.out.println(myPoint.toString());
-        Point myPoint2 = new Point(4.0 ,3.5);
+        Point myPoint2 = new Point(2.0 ,3.5);
         System.out.println(myPoint.equals(myPoint2));
         System.out.println(myPoint.isAbove(myPoint2));
         System.out.println(myPoint.isUnder(myPoint2));
