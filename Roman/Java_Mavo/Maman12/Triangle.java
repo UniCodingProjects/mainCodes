@@ -1,9 +1,9 @@
-import com.sun.jdi.Method;
-
 /**
- *Triangle class
- @author Roman Rapoport)
- @version (V1)
+ * Class that represents a triangle object in 2D space.
+ * Used to check various triangle characteristics and compare to another triangle class.
+ *
+ * @author Roman Rapoport
+ * @version V2
  */
 public class Triangle {
     private Point _point1;
@@ -12,34 +12,83 @@ public class Triangle {
     private double _edge1;
     private double _edge2;
     private double _edge3;
+
+    /**
+     * constant EPSILON.
+     */
     public static final double EPSILON = 0.001;
 
-    // define class constructors //
+    /**
+     * Constructor
+     * Instantiates a new default triangle object
+     */
     public Triangle (){
-        this._point1 = new Point(1.0, 0.0);
-        this._point2 = new Point(-1.0, 0.0);
-        this._point3 = new Point(0.0, 1.0);
-        setEdges();
+        defaultTriangle();
     }
 
+    /**
+     * Constructor
+     * Instantiates a new triangle based on 3 points where each point is a point class object that represents X,Y
+     * values of the point
+     *
+     * @param point1 the point 1 of the triangle
+     * @param point2 the point 2 of the triangle
+     * @param point3 the point 3 of the triangle
+     */
     public Triangle (Point point1, Point point2, Point point3){
-        this._point1 = new Point(point1);
-        this._point2 = new Point(point2);
-        this._point3 = new Point(point3);
+        if (!isValid(point1, point2, point3)){
+            defaultTriangle();
+        }
+        else {
+            setPointsByCoords(point1.getX(),  point1.getY(),  point2.getX(),  point2.getY(),  point3.getX(),  point3.getY());
+        }
+    }
+
+    /**
+     * Constructor
+     * Instantiates a new triangle based on 3 points where each point consists of 2 doubles (X,Y)
+     *
+     * @param point1 the point 1 X value
+     * @param point2 the point 1 Y value
+     * @param point3 the point 2 X value
+     * @param point4 the point 2 Y value
+     * @param point5 the point 3 X value
+     * @param point6 the point 3 Y value
+     */
+    public Triangle (double point1, double point2, double point3, double point4, double point5, double point6){
+        if (!isValid(new Point(point1, point2), new Point(point3, point4), new Point(point5, point6))){
+            defaultTriangle();
+        }
+        else {
+            setPointsByCoords(point1,  point2,  point3,  point4,  point5,  point6);
+        }
+    }
+
+    /**
+     * Copy constructor
+     * Instantiates a new triangle object.
+     *
+     * @param other triangle object
+     */
+    public Triangle (Triangle other){
+        setPointsByCoords(other._point1, other._point2, other._point3);
+    }
+
+    private void defaultTriangle(){
+        setPointsByCoords(1.0,  0.0,  -1.0,  0.0,  0.0,  1.0);
+    }
+
+    private void setPointsByCoords(Point point1, Point point2, Point point3) {
+        this._point1 = point1;
+        this._point2 = point2;
+        this._point3 = point3;
         setEdges();
     }
 
-    public Triangle (double point1, double point2, double point3, double point4, double point5, double point6){
+    private void setPointsByCoords(double point1, double point2, double point3, double point4, double point5, double point6){
         this._point1 = new Point(point1, point2);
         this._point2 = new Point(point3, point4);
         this._point3 = new Point(point5, point6);
-        setEdges();
-    }
-
-    public Triangle (Triangle other){
-        this._point1 = other._point1; //TODO: check if not aliasing here
-        this._point2 = other._point2;
-        this._point3 = other._point3;
         setEdges();
     }
 
@@ -48,7 +97,7 @@ public class Triangle {
     }
 
     private void setEdges(){
-        this._edge1 = this._point1.distance(this._point2); //TODO: check if not aliasing here
+        this._edge1 = this._point1.distance(this._point2);
         this._edge2 = this._point2.distance(this._point3);
         this._edge3 = this._point3.distance(this._point1);
     }
@@ -117,37 +166,68 @@ public class Triangle {
         return this._point1.isAbove(point) && this._point2.isAbove(point) && this._point3.isAbove(point);
     }
 
-    // define getters
     /**
+     * Get point 1 point.
      *
-     * @return value of first defined Point
+     * @return value of first point
      */
     public Point getPoint1(){
         return this._point1;
     }
 
+    /**
+     * Get point 2 point.
+     *
+     * @return value of second point
+     */
     public Point getPoint2(){
         return this._point2;
     }
 
+    /**
+     * Get point 3 point.
+     *
+     * @return value of third point
+     */
     public Point getPoint3(){
         return this._point3;
     }
 
-    // define setters
+    /**
+     * Set point 1.
+     *
+     * @param point1 Set point 1
+     */
     public void setPoint1(Point point1){
        this._point1 = point1;
     }
 
+    /**
+     * Set point 2.
+     *
+     * @param point2 Set point 2
+     */
     public void setPoint2(Point point2){
         this._point2 = point2;
     }
 
+    /**
+     * Set point 3.
+     *
+     * @param point3 Set point 3
+     */
     public void setPoint3(Point point3){
         this._point3 = point3;
     }
 
-    // def class methods
+    /**
+     * Is valid boolean.
+     *
+     * @param p1 point 1
+     * @param p2 point 2
+     * @param p3 point 3
+     * @return true if triangle is valid or false if not
+     */
     public boolean isValid(Point p1, Point p2, Point p3){
         double edge1 = p1.distance(p2);
         double edge2 = p2.distance(p3);
@@ -157,31 +237,63 @@ public class Triangle {
                 compareEqual((edge1 + edge3), edge2));
     }
 
+    /**
+     *
+     * @return a string representation of the 3 points that form the triangle
+     */
     public String toString(){
         return ""+'{'+this._point1+','+this._point2+','+this._point3+'}';
     }
 
+    /**
+     * Get perimeter double.
+     *
+     * @return the triangle's perimeter
+     */
     public double getPerimeter(){
         return this._edge1 + this._edge2 + this._edge3;
     }
 
+    /**
+     * Get area double.
+     *
+     * @return the triangle's area
+     */
     public double getArea(){
         double s = getPerimeter()/2;
         return Math.sqrt(s*(s-this._edge1)*(s-this._edge2)*(s-this._edge3));
     }
 
+    /**
+     * Is isosceles boolean.
+     *
+     * @return true if the triangle is an isosceles triangle otherwise returns false
+     */
     public boolean isIsosceles(){
         return (compareEqual(this._edge1, this._edge3) ||
                 compareEqual(this._edge2, this._edge3) ||
                 compareEqual(this._edge1, this._edge2));
     }
 
+    /**
+     * Is pythagorean boolean.
+     *
+     * @return true if the triangle is a pythagorean triangle otherwise returns false
+     */
     public boolean isPythagorean(){
         return (compareEqual(Math.sqrt(Math.pow(this._edge1, 2) + Math.pow(this._edge2, 2)), this._edge3) ||
                 compareEqual(Math.sqrt(Math.pow(this._edge2, 2) + Math.pow(this._edge3, 2)), this._edge1) ||
                 compareEqual(Math.sqrt(Math.pow(this._edge3, 2) + Math.pow(this._edge1, 2)), this._edge2));
     }
 
+    /**
+     * Is contained in circle boolean.
+     *
+     * @param x x coordinate of the circle center
+     * @param y y coordinate of the circle center
+     * @param r the circle's radius
+     * @return true if the triangle is contained in circle otherwise returns false
+     */
     public boolean isContainedInCircle(double x , double y, double r){
         Point circlePoint = new Point(x, y);
         if (r - this._point1.distance(circlePoint) < EPSILON){
@@ -198,14 +310,29 @@ public class Triangle {
         }
     }
 
+    /**
+     * Lowest point point.
+     *
+     * @return Lowest point in the triangle
+     */
     public Point lowestPoint(){
         return assertIsPlacement("isUnder");
     }
 
+    /**
+     * Highest point point.
+     *
+     * @return Highest point in the triangle
+     */
     public Point highestPoint(){
         return assertIsPlacement("isAbove");
     }
 
+    /**
+     * Is located boolean.
+     *
+     * @return true if the whole triangle is in one quadrant otherwise returns false
+     */
     public boolean isLocated(){
         if (compareEqual(this._point1.quadrant(), this._point2.quadrant())){
             return compareEqual(this._point1.quadrant(), this._point3.quadrant());
@@ -213,6 +340,12 @@ public class Triangle {
         return false;
     }
 
+    /**
+     * Is above boolean.
+     *
+     * @param other the triangle object to compare to
+     * @return true if the triangle is fully above the compared to triangle otherwise return false
+     */
     public boolean isAbove(Triangle other){
         if (!assertPointIsAboveOthers(other.getPoint1())){
             return false;
@@ -223,38 +356,63 @@ public class Triangle {
         return assertPointIsAboveOthers(other.getPoint3());
     }
 
+    /**
+     * Is under boolean.
+     *
+     * @param other the triangle object to compare to
+     * @return true if the triangle is fully below the compared to triangle
+     */
     public boolean isUnder(Triangle other) {
         return other.isAbove(this);
     }
 
-    public boolean equals(){
+    /**
+     * Equals boolean.
+     *
+     * @param other the triangle object to compare to
+     * @return true if the triangles are equal otherwise return false
+     */
+    public boolean equals(Triangle other){
+        return this._point1.distance(other._point1) < EPSILON && this._point2.distance(other._point2) < EPSILON && this._point3.distance(other._point3) < EPSILON;
+    }
+
+    private boolean compareEdge(Double edge){
+        return compareEqual(edge, this._edge1) ||
+                compareEqual(edge, this._edge2) ||
+                compareEqual(edge, this._edge3);
+    }
+
+    /**
+     * Is congruent boolean.
+     *
+     * @param other the triangle object to compare to
+     * @return true if the triangles are congruent otherwise return false
+     */
+    public boolean isCongruent(Triangle other) {
+        if (compareEdge(other._edge1) && compareEdge(other._edge2) && compareEdge(other._edge3)) {
+            if (compareEdge(other._edge1) && compareEdge(other._edge2) && compareEdge(other._edge3)) {
+                if (compareEdge(other._edge1) && compareEdge(other._edge2) && compareEdge(other._edge3)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
-    public boolean isCongruent(){
-        return false;
-    }
+    public static void main(String[] args){
+        Triangle t1 = new Triangle();
+        Triangle t2 = new Triangle(3, 3, 0, 0, -3, 3);
 
-    public static void main(String[ ] args) {
-        Point myPoint = new Point(-2, 5);
-        Point myPoint2 = new Point(-3, 2);
-        Point myPoint3 = new Point(-3 ,1);
-        Point p1 = new Point(-10, 20);
-        Point p2 = new Point(-12, 30);
-        Point p3 = new Point(-20 ,10);
-//        Point myPoint4 = new Point(-3 ,-20);
-        Triangle newT = new Triangle(myPoint, myPoint2, myPoint3);
-        Triangle newTT = new Triangle(p1, p2, p3);
-//        newT.setPoint1(myPoint4);
-//        System.out.println(newT.isValid(myPoint, myPoint2, myPoint3));
-//        System.out.println(newT.isIsosceles());
-//        System.out.println(newT.isPythagorean());
-//        System.out.println(newT.toString());
-        System.out.println(newT.isContainedInCircle(2.5, 4, 3));
-        System.out.println(newT.lowestPoint());
-        System.out.println(newT.highestPoint());
-        System.out.println(newT.isLocated());
-        System.out.println(newT.isAbove(newTT));
-        System.out.println(newT.isUnder(newTT));
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(5, 5);
+        Point p3 = new Point(5, 0);
+
+        Triangle t3 = new Triangle(p1, p2, p3);
+
+        VisualTriangle v0 = new VisualTriangle("testing first constructor and getters:");
+        v0.add(t1);
+        v0.add(t2);
+        v0.add(t3);
+
     }
 }

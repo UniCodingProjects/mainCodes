@@ -40,7 +40,7 @@ public class VisualTriangle extends JPanel {
         this.setFont(this.FONT);
         this.colors = new ArrayList();
         this.colors.add(new Color(235, 94, 11));
-        this.colors.add(new Color(78, 61, 83));
+        this.colors.add(new Color(83, 21, 0));
         this.colors.add(new Color(228, 0, 16));
         this.colors.add(new Color(240, 165, 0));
         this.colors.add(new Color(73, 163, 1));
