@@ -3,7 +3,7 @@
  * Used to check various triangle characteristics and compare to another triangle class.
  *
  * @author Roman Rapoport
- * @version V2
+ * @version Maman12
  */
 public class Triangle {
     private Point _point1;
@@ -12,10 +12,6 @@ public class Triangle {
     private double _edge1;
     private double _edge2;
     private double _edge3;
-
-    /**
-     * constant EPSILON.
-     */
     public static final double EPSILON = 0.001;
 
     /**
@@ -40,7 +36,7 @@ public class Triangle {
             defaultTriangle();
         }
         else {
-            setPointsByCoords(point1.getX(),  point1.getY(),  point2.getX(),  point2.getY(),  point3.getX(),  point3.getY());
+            setPointsByCoords(point1,  point2,  point3);
         }
     }
 
@@ -78,6 +74,7 @@ public class Triangle {
         setPointsByCoords(1.0,  0.0,  -1.0,  0.0,  0.0,  1.0);
     }
 
+    // private methods
     private void setPointsByCoords(Point point1, Point point2, Point point3) {
         this._point1 = point1;
         this._point2 = point2;
@@ -92,14 +89,25 @@ public class Triangle {
         setEdges();
     }
 
-    private boolean compareEqual(double num1, double num2){
-        return (Math.abs(num1 - num2) < this.EPSILON);
-    }
-
     private void setEdges(){
         this._edge1 = this._point1.distance(this._point2);
         this._edge2 = this._point2.distance(this._point3);
         this._edge3 = this._point3.distance(this._point1);
+    }
+
+    private boolean compareEqual(double num1, double num2){
+        return (Math.abs(num1 - num2) < this.EPSILON);
+    }
+
+    private boolean compareEdge(Double edge){
+        return compareEqual(edge, this._edge1) ||
+                compareEqual(edge, this._edge2) ||
+                compareEqual(edge, this._edge3);
+    }
+
+
+    private boolean assertPointIsAboveOthers(Point point) {
+        return this._point1.isAbove(point) && this._point2.isAbove(point) && this._point3.isAbove(point);
     }
 
     private Point assertForEqualY(){
@@ -162,10 +170,7 @@ public class Triangle {
         return assertForEqualY();
     }
 
-    private boolean assertPointIsAboveOthers(Point point) {
-        return this._point1.isAbove(point) && this._point2.isAbove(point) && this._point3.isAbove(point);
-    }
-
+    // public methods
     /**
      * Get point 1 point.
      *
@@ -199,7 +204,10 @@ public class Triangle {
      * @param point1 Set point 1
      */
     public void setPoint1(Point point1){
-       this._point1 = point1;
+        if (isValid(point1, this._point2, this._point3)){
+            this._point1 = point1;
+            setEdges();
+        }
     }
 
     /**
@@ -208,7 +216,10 @@ public class Triangle {
      * @param point2 Set point 2
      */
     public void setPoint2(Point point2){
-        this._point2 = point2;
+        if (isValid(this._point1, point2, this._point3)){
+            this._point2 = point2;
+            setEdges();
+        }
     }
 
     /**
@@ -217,7 +228,10 @@ public class Triangle {
      * @param point3 Set point 3
      */
     public void setPoint3(Point point3){
-        this._point3 = point3;
+        if (isValid(this._point1, this._point2, point3)){
+            this._point3 = point3;
+            setEdges();
+        }
     }
 
     /**
@@ -376,12 +390,6 @@ public class Triangle {
         return this._point1.distance(other._point1) < EPSILON && this._point2.distance(other._point2) < EPSILON && this._point3.distance(other._point3) < EPSILON;
     }
 
-    private boolean compareEdge(Double edge){
-        return compareEqual(edge, this._edge1) ||
-                compareEqual(edge, this._edge2) ||
-                compareEqual(edge, this._edge3);
-    }
-
     /**
      * Is congruent boolean.
      *
@@ -397,22 +405,5 @@ public class Triangle {
             }
         }
         return false;
-    }
-
-    public static void main(String[] args){
-        Triangle t1 = new Triangle();
-        Triangle t2 = new Triangle(3, 3, 0, 0, -3, 3);
-
-        Point p1 = new Point(0, 0);
-        Point p2 = new Point(5, 5);
-        Point p3 = new Point(5, 0);
-
-        Triangle t3 = new Triangle(p1, p2, p3);
-
-        VisualTriangle v0 = new VisualTriangle("testing first constructor and getters:");
-        v0.add(t1);
-        v0.add(t2);
-        v0.add(t3);
-
     }
 }

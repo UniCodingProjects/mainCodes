@@ -1,8 +1,8 @@
 /**
- * Point class that represents a point in a 2D plane based on the cartesian system, e.g. (x, y)
+ * Point class that represents a point in a 2D plane, e.g. (x, y)
  *
  * @author Roman Rapoport
- * @version V1
+ * @version Maman12
  */
 public class Point {
     private double _x;

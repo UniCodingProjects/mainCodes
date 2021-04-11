@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="wowss">
+    <file>D:/World of Warcraft/Screenshots/WoWScrnShot_090417_234435.jpg</file>
+    <file>D:/World of Warcraft/Screenshots/WoWScrnShot_090417_234550.jpg</file>
+    <file>D:/World of Warcraft/Screenshots/WoWScrnShot_090417_235148.jpg</file>
+  </qresource>
+</RCC>
