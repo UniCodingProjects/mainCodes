@@ -3,20 +3,45 @@ public class RGBImage{
 
     //constructors
     public RGBImage(int rows, int cols){
-        _image = new RGBColor[rows][cols];
-        for (int i=0; i<rows; i++){
-            for (int j=0; j<cols; j++){
-                _image[i][j] = new RGBColor();
+        imageAssignLooper(rows, cols);
+    }
+
+    public RGBImage(RGBColor[][] pixels){
+        imageAssignLooper(pixels);
+    }
+
+    public RGBImage(RGBImage other){
+        imageAssignLooper(other);
+    }
+
+    private void imageAssignLooper(RGBImage image) {
+        _image = new RGBColor[image._image.length][image._image[0].length];
+        for (int i = 0; i < image._image.length; i++) {
+            for (int j = 0; j < image._image[0].length; j++) {
+                _image[i][j] = image._image[i][j];
             }
         }
     }
 
-    public RGBImage(RGBColor[][] pixels){
-        _image = pixels;
+    private void imageAssignLooper(RGBColor[][] image) {
+        _image = new RGBColor[image.length][image[0].length];
+        for (int i = 0; i < image.length; i++) {
+            for (int j = 0; j < image[0].length; j++) {
+                _image[i][j] = new RGBColor(
+                        image[i][j].getRed(),
+                        image[i][j].getGreen(),
+                        image[i][j].getBlue());
+            }
+        }
     }
 
-    public RGBImage(RGBImage other){
-        _image = other._image;
+    private void imageAssignLooper(int rows, int cols) {
+        _image = new RGBColor[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                _image[i][j] = new RGBColor();
+            }
+        }
     }
 
     private boolean checkCoordinatesValidity(int row, int col){
@@ -68,6 +93,8 @@ public class RGBImage{
 
 
 
+
+
     public static void main(String[] args){
         RGBImage RGB = new RGBImage(5, 8);
 
@@ -113,5 +140,4 @@ public class RGBImage{
 //                ar1};
 //        System.out.println(RGB.toString());
     }
-
 }
