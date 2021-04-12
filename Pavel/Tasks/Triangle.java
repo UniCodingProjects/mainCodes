@@ -1,3 +1,4 @@
+import java.security.spec.ECPoint;
 
 public class Triangle {
     public static final double EPSILON = 0.001;
@@ -137,14 +138,65 @@ public class Triangle {
     public boolean isPythagorean(){
         return ((Math.pow(side1,2)+Math.pow(side2,2))-(Math.pow(side3,2)) < EPSILON) || ((Math.pow(side2,2)+Math.pow(side3,2))-(Math.pow(side1,2)) < EPSILON) || ((Math.pow(side1,2)+Math.pow(side3,2))-(Math.pow(side2,2)) < EPSILON);
     }
+    public boolean isContainedInCircle(double x, double y, double r){
+        if(_point1.distance(new Point(x,y)) <= r && _point2.distance(new Point(x,y)) <= r && _point3.distance(new Point(x,y)) <= r) {
+            return true;
+        }
+        return false;
+    }
+
+//    private boolean compareEqualHeight(){
+//        if((Math.abs((_point1.getY() - _point2.getY())) < EPSILON){
+//
+//        }
+//
+//    }
+//    public Point lowestPoint() { //**********last version**************//
+//          if (((_point1.isUnder(_point2)) || ((Math.abs((_point1.getY() - _point2.getY())) < EPSILON) && _point1.isLeft(_point2))) && ((_point1.isUnder(_point3)) || ((Math.abs(_point1.getY() - _point3.getY())) < EPSILON) && _point1.isLeft(_point3))) {
+//              if((!(_point1.isUnder(_point2))) && (Math.abs(_point1.getY() - _point2.getY())) < EPSILON) {
+//                  return _point1;
+//              }
+//          }else if(((_point2.isUnder(_point1)) || ((Math.abs((_point2.getY() - _point1.getY())) < EPSILON) && _point2.isLeft(_point1))) && ((_point2.isUnder(_point3)) || ((Math.abs(_point2.getY() - _point1.getY())) < EPSILON) && _point2.isLeft(_point3))){
+//                  if((!(_point2.isUnder(_point1))) && (Math.abs(_point2.getY() - _point1.getY())) < EPSILON) {
+//                      return _point2;
+//                  }
+//          }else if(((_point3.isUnder(_point1)) || ((Math.abs((_point3.getY() - _point1.getY())) < EPSILON) && _point3.isLeft(_point1))) && ((_point3.isUnder(_point2)) || ((Math.abs(_point3.getY() - _point2.getY())) < EPSILON) && _point3.isLeft(_point2))){
+//                  if((!(_point3.isUnder(_point1))) && (Math.abs(_point3.getY() - _point1.getY())) < EPSILON) {
+//                      return _point3;
+//                  }///////////*************************************///////////////////
+//        if (((_point1.isUnder(_point2)) && (_point1.isUnder(_point3))) || ((Math.abs((_point1.getY() - _point2.getY())) < EPSILON) && _point1.isLeft(_point2)) || ((Math.abs(_point1.getY() - _point3.getY())) < EPSILON) && _point1.isLeft(_point3)){
+//            return _point1;
+//        }else if(((_point2.isUnder(_point1)) && (_point2.isUnder(_point3))) || ((Math.abs((_point2.getY() - _point1.getY())) < EPSILON) && _point2.isLeft(_point1)) || ((Math.abs(_point2.getY() - _point3.getY())) < EPSILON) && _point2.isLeft(_point3)) {
+//            return _point2;
+//        }else if(((_point3.isUnder(_point1)) && (_point3.isUnder(_point2))) || ((Math.abs((_point3.getY() - _point1.getY())) < EPSILON) && _point3.isLeft(_point1)) || ((Math.abs(_point3.getY() - _point2.getY())) < EPSILON) && _point3.isLeft(_point2)){
+//            return _point3;
+//        }
+//        return null;
+//    }
+//    public Point highestPoint() { //********* last version***********//
+//        if (((_point1.isAbove(_point2)) && (_point1.isAbove(_point3))) || ((Math.abs((_point1.getY() - _point2.getY())) < EPSILON) && _point1.isLeft(_point2)) || ((Math.abs(_point1.getY() - _point3.getY())) < EPSILON) && _point1.isLeft(_point3)) {
+//            return _point1;
+//        } else if (((_point2.isAbove(_point1)) && (_point2.isAbove(_point3))) || ((Math.abs((_point2.getY() - _point1.getY())) < EPSILON) && _point2.isLeft(_point1)) || ((Math.abs(_point2.getY() - _point3.getY())) < EPSILON) && _point2.isLeft(_point3)) {
+//            return _point2;
+//        } else if (((_point3.isAbove(_point1)) && (_point3.isAbove(_point2))) || ((Math.abs((_point3.getY() - _point1.getY())) < EPSILON) && _point3.isLeft(_point1)) || ((Math.abs(_point3.getY() - _point2.getY())) < EPSILON) && _point3.isLeft(_point2)){
+//                return _point3;
+//            }
+//        return null;
+//    }///////////////////////***********************///////////////////////
+//    public boolean isLocated(){
+//        if((_point1.quadrant( && _point2.quadrant() = 1 && _point3.quadrant() = 1){
+//
+//        }
+//    }
+
 
     public static void main(String []args){
 //        Triangle myT2 = new Triangle(myT);
-//        Point p1 = new Point(0,2);
-//        Point p2 = new Point(1,2);
-//        Point p3 = new Point(0.5,5);
-//        Triangle myT = new Triangle(p1,p2,p3);
-        Triangle myT = new Triangle();
+        Point p1 = new Point(0,3);
+        Point p2 = new Point(1,3);
+        Point p3 = new Point(-2,0);
+        Triangle myT = new Triangle(p1,p2,p3);
+//        Triangle myT = new Triangle();
 //        myT.calculateSides();
 //        myT.getArea();
 //        myT.setPoint1(new Point(-2,3));
@@ -159,7 +211,10 @@ public class Triangle {
         System.out.println(myT.toString());
         System.out.println(myT.getPerimeter());
         System.out.println(myT.getArea());
-        System.out.println(myT.isIsosceles());
-        System.out.println(myT.isPythagorean());
+//        System.out.println(myT.isIsosceles());
+//        System.out.println(myT.isPythagorean());
+        System.out.println(myT.isContainedInCircle(1,2,3.02));
+//        System.out.println(myT.lowestPoint());
+//        System.out.println(myT.highestPoint());
     }
 }
