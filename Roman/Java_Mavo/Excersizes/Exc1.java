@@ -1,4 +1,5 @@
 import java.text.NumberFormat;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -86,3 +87,26 @@ class test1{
     }
 }
 
+
+
+class test2{
+    public static void main(String[] args){
+        String word = "";
+        int[] myArray = {1, 2, 3};
+        for (int i = 0; i < myArray.length; i++){
+            System.out.println(myArray[i]);
+        }
+        String[] mySArray = {"fag", "gay", "fag"};
+        for (int i = 0; i < mySArray.length; i++){
+            System.out.println(mySArray[i]);
+            word = mySArray[i].equals("fag") ? "fag" : "f";
+        }
+        System.out.println(word);
+        for (int value: myArray) {
+            System.out.println(value);
+        }
+        for (String value: mySArray) {
+            System.out.println(value);
+        }
+    }
+}
