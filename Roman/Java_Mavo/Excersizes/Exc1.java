@@ -110,3 +110,51 @@ class test2{
         }
     }
 }
+
+class Worker{
+    private String _name;
+    private double _salary;
+    private int _vacationDays;
+
+    public Worker(){
+        _name = "fag";
+        _salary = 0;
+        _vacationDays = 0;
+    }
+
+    public Worker(String name, double salary, int vacationDays){
+        _name = name;
+        _salary = salary;
+        _vacationDays = vacationDays;
+    }
+
+    public double getSalary(){
+        return _salary;
+    }
+
+    public void setSalary(double salary){
+        _salary = salary;
+    }
+
+    public boolean checkSalary(){
+        if (_salary>20){
+            return true;
+        }
+        return false;
+    }
+
+
+    public static void main(String[] args){
+        Worker randomWorker = new Worker();
+        System.out.println(randomWorker._name.charAt(0));
+//        Worker worker1 = new Worker("roman", 8000, 0);
+//        Worker worker2 = new Worker("sasha", 10, 1000);
+//
+//        double mySalary = worker1.getSalary();
+//        System.out.println(mySalary);
+//        double mySalary2 = worker2.getSalary();
+//        System.out.println(mySalary2);
+//        worker2.setSalary(5);
+//        System.out.println(worker2.getSalary());
+    }
+}

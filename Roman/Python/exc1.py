@@ -34,3 +34,15 @@ print(repr(C))
 C.print()
 C.X = 2
 C.print()
+
+
+
+
+
+
+
+
+
+
+
+
