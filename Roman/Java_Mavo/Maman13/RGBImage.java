@@ -186,15 +186,15 @@ public class RGBImage{
     public void flipHorizontal(){
         int lastRowIndex = this.getHeight()-1;
         for (RGBColor[] row: this._image){
-            if (!(lastRowIndex == this.getHeight() /2 )|| this.getHeight() == 2) {
-                RGBColor[] tempRow = this.getRow(lastRowIndex);
-                this._image[lastRowIndex] = row;
-                this._image[(this.getHeight() - 1) - lastRowIndex] = tempRow;
-                if (this.getHeight() == 2){
-                    break;
+                if (!(lastRowIndex == this.getHeight() / 2) || this.getHeight() == 2) {
+                    RGBColor[] tempRow = this.getRow(lastRowIndex);
+                    this._image[lastRowIndex] = row;
+                    this._image[(this.getHeight() - 1) - lastRowIndex] = tempRow;
+                    if (this.getHeight() == 2) {
+                        break;
+                    }
+                    lastRowIndex--;
                 }
-                lastRowIndex--;
-            }
         }
     }
 
@@ -207,9 +207,10 @@ public class RGBImage{
         for (RGBColor[] row: _image) {
             for (RGBColor color : row) {
                 if (!(lastIndexInRow == this.getWidth() / 2) || this.getWidth() == 2) {
-                    RGBColor tempColor = row[lastIndexInRow];
-                    this._image[firstRowIndex][lastIndexInRow] = color;
-                    this._image[firstRowIndex][this.getWidth() - 1 - lastIndexInRow] = tempColor;
+                    this._image[firstRowIndex][this.getWidth() - 1 - lastIndexInRow] = new RGBColor(row[lastIndexInRow]);
+                    this._image[firstRowIndex][lastIndexInRow] = new RGBColor(color);
+//                    this.setPixel(firstRowIndex, this.getWidth() - 1 - lastIndexInRow, new RGBColor(row[lastIndexInRow]));
+//                    this.setPixel(firstRowIndex, lastIndexInRow, new RGBColor(color));
                     if (this.getWidth() == 2){
                         break;
                     }
@@ -270,12 +271,12 @@ public class RGBImage{
             for (int i = 0; i < getHeight(); i++) {
                 for (int j = 0; j < Math.abs(offset); j++) {
                     if (offset > 0){
-                        _image[i][j + 1] = _image[i][j];
-                        _image[i][j] = new RGBColor();
+                        this.setPixel(i, j+1, new RGBColor(_image[i][j]));
+                        this.setPixel(i, j, new RGBColor());
                     }
                     else {
-                        _image[i][j] = _image[i][j+1];
-                        _image[i][getWidth() -1 - j] = new RGBColor();
+                        this.setPixel(i, j, new RGBColor(_image[i][j+1]));
+                        this.setPixel(i, getWidth() -1 - j, new RGBColor());
                     }
                 }
             }
@@ -389,11 +390,10 @@ public class RGBImage{
 //        RGB2.flipHorizontal();
 //        System.out.println(RGB2.toString());
 //        System.out.println("======================================\n");
-//        System.out.println(RGB2.toString());
-////
-//        System.out.println();
-//        RGB2.flipVertical();
-//        System.out.println(RGB2.toString());
+
+        System.out.println(RGB2.toString());
+        RGB2.flipVertical();
+        System.out.println(RGB2.toString());
 
 //        System.out.println();
 //        RGB2.invertColors();
@@ -414,10 +414,15 @@ public class RGBImage{
 ////
 //        System.out.println();
 //        RGB2.shiftRow(3);
-        System.out.println(RGB2.toString());
-        System.out.println(RGB2.toGrayscaleArray()[3][2]);
-//        System.out.println(RGB2.equals(RGB2));
-
+//        System.out.println(RGB2.toString());
+////        System.out.println(RGB2.equals(RGB2));
+//        RGBColor[][] rgbArray2 = RGB2.toRGBColorArray();
+//        for(int i=0;i<rgbArray2.length;i++){
+//            for(int j=0;j<rgbArray2[0].length;j++)
+//                System.out.print(rgbArray2[i][j]+"  ");
+//            System.out.println();
+//        }
+//
 
 
 

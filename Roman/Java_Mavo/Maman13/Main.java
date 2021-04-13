@@ -1,8 +1,4 @@
-/*
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
+
 
 import javax.swing.JFrame;
 
@@ -19,4 +15,4 @@ public class Main {
         frame.setVisible(true);
     }
 }
-*/
+
