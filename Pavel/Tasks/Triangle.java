@@ -15,7 +15,6 @@ public class Triangle {
 
     /**
      * Constructor
-     * <p>
      * Instantiates a new triangle based on 3 provided default points
      */
     public Triangle() { // add default points into default constructor
