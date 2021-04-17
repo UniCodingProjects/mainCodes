@@ -1,7 +1,6 @@
 /**
  * Class that represents an RGB image of X by Y dimensions
  */
-@SuppressWarnings("WeakerAccess")
 public class RGBImage {
     private RGBColor[][] _image;
 
@@ -12,7 +11,7 @@ public class RGBImage {
      * @param cols amount of columns in the image
      */
     public RGBImage(int rows, int cols) {
-        imageAssignLooper(rows, cols);
+        this.imageAssignLooper(rows, cols);
     }
 
     /**
@@ -21,7 +20,7 @@ public class RGBImage {
      * @param pixels 2D array of RGBColor type
      */
     public RGBImage(RGBColor[][] pixels) {
-        imageAssignLooper(pixels);
+        this.imageAssignLooper(pixels);
     }
 
     /**
@@ -30,7 +29,7 @@ public class RGBImage {
      * @param other another RGBImage object
      */
     public RGBImage(RGBImage other) {
-        imageAssignLooper(other);
+        this.imageAssignLooper(other);
     }
 
     private void imageAssignLooper(int rows, int cols) {
@@ -43,16 +42,16 @@ public class RGBImage {
     }
 
     private void imageAssignLooper(RGBColor[][] image) {
-        _image = new RGBColor[image.length][image[0].length];
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
+        this._image = new RGBColor[image.length][image[0].length];
+        for (int i = 0; i < this.getHeight(); i++) {
+            for (int j = 0; j < this.getWidth(); j++) {
                 this.setPixel(i, j, image[i][j]);
             }
         }
     }
 
     private void imageAssignLooper(RGBImage image) {
-        _image = new RGBColor[image._image.length][image._image[0].length];
+        this._image = new RGBColor[image.getHeight()][image.getWidth()];
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
                 this.setPixel(i, j, image.getPixel(i, j));
@@ -78,20 +77,23 @@ public class RGBImage {
 
     private void shiftDownDirection(int offset) {
         if (Math.abs(offset) == this.getHeight()) {
-            imageAssignLooper(this.getHeight(), this.getWidth());
+            this.imageAssignLooper(this.getHeight(), this.getWidth());
         } else if (offset != 0 && !(offset > this.getHeight())) {
             for (int i = 0; i <= this.getHeight(); i++) {
-                fillRowByOffset(offset, i);
+                this.fillRowByOffset(offset, i);
             }
             for (int row = 0; row < offset; row++) {
-                fillRowByOffset(row, new RGBColor());
+                this.fillRowByOffset(row, new RGBColor());
             }
-//            fillRowWithSameColor(0, 0, 0, offset, 0);
         }
     }
 
     private boolean checkCoordinatesValidity(int row, int col) {
         return row < this.getHeight() && col < this.getWidth();
+    }
+
+    private void setRow(RGBColor[] row, int rowNum){
+        this._image[rowNum] = row;
     }
 
     private RGBColor[] getRow(int row) {
@@ -125,7 +127,7 @@ public class RGBImage {
      * @return returns RGBColor object that represents the desired pixel
      */
     public RGBColor getPixel(int row, int col) {
-        return checkCoordinatesValidity(row, col) ? this._image[row][col] : new RGBColor();
+        return this.checkCoordinatesValidity(row, col) ? this._image[row][col] : new RGBColor();
     }
 
     /**
@@ -137,14 +139,9 @@ public class RGBImage {
      * @param pixel RGBColor object that represents the desired pixel to be set
      */
     public void setPixel(int row, int col, RGBColor pixel) {
-        if (checkCoordinatesValidity(row, col)) {
-            if (this.getPixel(row, col) == null) {
-                this._image[row][col] = new RGBColor(pixel);
-            } else {
-                this.getPixel(row, col).setBlue(pixel.getBlue());
-                this.getPixel(row, col).setGreen(pixel.getGreen());
-                this.getPixel(row, col).setRed(pixel.getRed());
-            }
+        if (this.checkCoordinatesValidity(row, col)) {
+            this.getRow(row)[col] = new RGBColor(pixel);
+//            this._image[row][col] = new RGBColor(pixel);
         }
     }
 
@@ -175,10 +172,10 @@ public class RGBImage {
     public void flipHorizontal() {
         int lastRowIndex = this.getHeight() - 1;
         for (RGBColor[] row : this._image) {
-            if (!(lastRowIndex == this.getHeight() / 2) || this.getHeight() == 2) {
+            if (!(lastRowIndex == (this.getHeight() / 2) -1 || this.getHeight() == 2)){
                 RGBColor[] tempRow = this.getRow(lastRowIndex);
-                this._image[lastRowIndex] = row;
-                this._image[(this.getHeight() - 1) - lastRowIndex] = tempRow;
+                this.setRow(row, lastRowIndex);
+                this.setRow(tempRow, (this.getHeight() - 1) - lastRowIndex);
                 if (this.getHeight() == 2) {
                     break;
                 }
@@ -195,9 +192,9 @@ public class RGBImage {
         int firstRowIndex = 0;
         for (RGBColor[] row : _image) {
             for (RGBColor color : row) {
-                if (!(lastIndexInRow == this.getWidth() / 2) || this.getWidth() == 2) {
-                    this._image[firstRowIndex][this.getWidth() - 1 - lastIndexInRow] = new RGBColor(row[lastIndexInRow]);
-                    this._image[firstRowIndex][lastIndexInRow] = new RGBColor(color);
+                if (!(lastIndexInRow == (this.getWidth() / 2) -1|| this.getWidth() == 2)) {
+                    this.setPixel(firstRowIndex, this.getWidth() - 1 - lastIndexInRow, new RGBColor(row[lastIndexInRow]));
+                    this.setPixel(firstRowIndex, lastIndexInRow, new RGBColor(color));
                     if (this.getWidth() == 2) {
                         break;
                     }
@@ -232,7 +229,7 @@ public class RGBImage {
                 rotatedImage[i][j] = new RGBColor(this.getPixel(this.getHeight() - 1 - j, i));
             }
         }
-        imageAssignLooper(rotatedImage);
+        this.imageAssignLooper(rotatedImage);
     }
 
     /**
@@ -240,7 +237,7 @@ public class RGBImage {
      */
     public void rotateCounterClockwise() {
         for (int i = 0; i < 3; i++) {
-            rotateClockwise();
+            this.rotateClockwise();
         }
     }
 
@@ -251,13 +248,13 @@ public class RGBImage {
      */
     public void shiftCol(int offset) {
         if (offset > 0) {
-            rotateClockwise();
-            shiftDownDirection(offset);
-            rotateCounterClockwise();
+            this.rotateClockwise();
+            this.shiftDownDirection(offset);
+            this.rotateCounterClockwise();
         } else if (offset < 0) {
-            rotateCounterClockwise();
-            shiftDownDirection(Math.abs(offset));
-            rotateClockwise();
+            this.rotateCounterClockwise();
+            this.shiftDownDirection(Math.abs(offset));
+            this.rotateClockwise();
         }
     }
 
@@ -268,13 +265,13 @@ public class RGBImage {
      */
     public void shiftRow(int offset) {
         if (offset > 0) {
-            shiftDownDirection(offset);
+            this.shiftDownDirection(offset);
         } else if (offset < 0) {
-            rotateClockwise();
-            rotateClockwise();
-            shiftDownDirection(Math.abs(offset));
-            rotateCounterClockwise();
-            rotateCounterClockwise();
+            this.rotateClockwise();
+            this.rotateClockwise();
+            this.shiftDownDirection(Math.abs(offset));
+            this.rotateCounterClockwise();
+            this.rotateCounterClockwise();
         }
 
     }
@@ -315,12 +312,7 @@ public class RGBImage {
      * @return the copied 2D RGBColor array
      */
     public RGBColor[][] toRGBColorArray() {
-        RGBColor[][] copyImage = new RGBColor[this.getHeight()][this.getWidth()];
-        for (int i = 0; i < this.getHeight(); i++) {
-            for (int j = 0; j < this.getWidth(); j++) {
-                copyImage[i][j] = new RGBColor(this.getPixel(i, j));
-            }
-        }
-        return copyImage;
+        RGBImage copyImage = new RGBImage(this._image);
+        return copyImage._image;
     }
 }

@@ -7,10 +7,10 @@ public class StudentTester {
 		System.out.println(rgbImg0);
 
 		System.out.println("Constructor with RGBColor[][] Array Parameter:");
-		RGBColor[][] rgbArray1 = new RGBColor[3][4];
+		RGBColor[][] rgbArray1 = new RGBColor[5][7];
 		for (int i=0; i<rgbArray1.length;i++)
 			for (int j=0; j<rgbArray1[0].length;j++)
-				rgbArray1[i][j] = new RGBColor(i,i,i);
+				rgbArray1[i][j] = new RGBColor(i,7,i);
 		RGBImage rgbImg1 = new RGBImage(rgbArray1);
 		System.out.println(rgbImg1);
 
@@ -26,17 +26,18 @@ public class StudentTester {
 
 		System.out.println("rotateClockwise:");
 		rgbImg1.rotateClockwise();
+        rgbImg1.rotateClockwise();
 		System.out.println(rgbImg1);
-		System.out.println("rotateCounterClockwise:");
-		rgbImg1.rotateCounterClockwise();
-		System.out.println(rgbImg1);
-		System.out.println("rotateCounterClockwise:");
-		rgbImg1.rotateCounterClockwise();
-		System.out.println(rgbImg1);
-		System.out.println("rotateClockwise:");
-		rgbImg1.rotateClockwise();
-		System.out.println(rgbImg1);
-
+//		System.out.println("rotateCounterClockwise:");
+//		rgbImg1.rotateCounterClockwise();
+//		System.out.println(rgbImg1);
+//		System.out.println("rotateCounterClockwise:");
+//		rgbImg1.rotateCounterClockwise();
+//		System.out.println(rgbImg1);
+//		System.out.println("rotateClockwise:");
+//		rgbImg1.rotateClockwise();
+//		System.out.println(rgbImg1);
+//
 		System.out.println("flipHorizontal:");
 		rgbImg1.flipHorizontal();
 		System.out.println(rgbImg1);
