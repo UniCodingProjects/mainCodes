@@ -141,7 +141,6 @@ public class RGBImage {
     public void setPixel(int row, int col, RGBColor pixel) {
         if (this.checkCoordinatesValidity(row, col)) {
             this.getRow(row)[col] = new RGBColor(pixel);
-//            this._image[row][col] = new RGBColor(pixel);
         }
     }
 
