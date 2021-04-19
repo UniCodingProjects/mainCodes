@@ -58,11 +58,13 @@ class GitHub:
         print(f"Commits behind: {len(commits)}")
 
 
-Github = GitHub()
-print(Github.gitStatus())
-Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
-Github.gitCommitAll("-m git actions repo")
-Github.gitPush()
-print(Github.gitStatus())
-print(Github.commitsDiff())
-pass
+
+if __name__ == '__main__':
+    Github = GitHub()
+    print(Github.gitStatus())
+    Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
+    Github.gitCommitAll("-m git actions repo")
+    Github.gitPush()
+    print(Github.gitStatus())
+    print(Github.commitsDiff())
+    pass
