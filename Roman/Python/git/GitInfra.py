@@ -51,6 +51,8 @@ class GitHub:
                 return self.cmd.push()
             except GitCommandError as ex:
                 print(f"Cant push: {ex}")
+                if str(ex.args[2]).split("\\n")[0].__contains__("no upstream"):
+                    return self.cmd.push(f"--set-upstream origin {self.repo.active_branch.name}")
                 raise ex
         else:
             print("Fetch, Rebase, and Push again")
