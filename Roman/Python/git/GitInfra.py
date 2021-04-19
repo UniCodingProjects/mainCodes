@@ -43,11 +43,14 @@ class GitHub:
         return self.cmd.commit(f"-m {message}")
 
     def gitPush(self):
-        try:
-            return self.cmd.push()
-        except GitCommandError as ex:
-            print(f"Cant push: {ex}")
-            raise ex
+        if self.commitsDiff():
+            try:
+                return self.cmd.push()
+            except GitCommandError as ex:
+                print(f"Cant push: {ex}")
+                raise ex
+        else:
+            print("Fetch, Rebase, and Push again")
 
     def commitsDiff(self):
         commits = list()
@@ -56,7 +59,10 @@ class GitHub:
         for commit in commitsBehind:
             commits.append(commit)
         print(f"Commits behind: {len(commits)}")
-
+        if len(commits) > 0:
+            return False
+        else:
+            return True
 
 
 if __name__ == '__main__':
