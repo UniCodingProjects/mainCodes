@@ -40,7 +40,10 @@ class GitHub:
             print(self.cmd.add(arg))
 
     def gitCommitAll(self, message):
-        return self.cmd.commit(f"-m {message}")
+        try:
+            return self.cmd.commit(f"-m {message}")
+        except GitCommandError as ex:
+            print(ex)
 
     def gitPush(self):
         if self.commitsDiff():
