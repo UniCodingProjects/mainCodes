@@ -74,4 +74,4 @@ if __name__ == '__main__':
     Github.gitPush()
     print(Github.gitStatus())
     print(Github.commitsDiff())
-    pass
+
