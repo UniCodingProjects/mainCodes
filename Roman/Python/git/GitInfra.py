@@ -40,7 +40,10 @@ class GitHub:
             print(self.cmd.add(arg))
 
     def gitCommitAll(self, message):
-        return self.cmd.commit(f"-m {message}")
+        try:
+            return self.cmd.commit(f"-m {message}")
+        except GitCommandError as ex:
+            print(ex)
 
     def gitPush(self):
         if self.commitsDiff():
@@ -48,6 +51,8 @@ class GitHub:
                 return self.cmd.push()
             except GitCommandError as ex:
                 print(f"Cant push: {ex}")
+                if str(ex.args[2]).split("\\n")[0].__contains__("no upstream"):
+                    return self.cmd.push(f"--set-upstream", self.repo.remote(), self.repo.active_branch.name)
                 raise ex
         else:
             print("Fetch, Rebase, and Push again")
@@ -57,8 +62,8 @@ class GitHub:
         commits = list()
         branch = self.repo.active_branch.name
         commitsBehind = Github.repo.iter_commits(f'{branch}..origin/master')
-        for commit in commitsBehind:
-            commits.append(commit)
+        for comm in commitsBehind:
+            commits.append(comm)
         print(f"Commits behind: {len(commits)}")
         if len(commits) > 0:
             return False
@@ -69,9 +74,9 @@ class GitHub:
 if __name__ == '__main__':
     Github = GitHub()
     print(Github.gitStatus())
-    Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
-    Github.gitCommitAll("-m git actions repo")
-    Github.gitPush()
-    print(Github.gitStatus())
-    print(Github.commitsDiff())
-    pass
+    print(Github.getActiveBranch())
+    # Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
+    # Github.gitCommitAll("-m git actions repo")
+    # Github.gitPush()
+    # print(Github.gitStatus())
+    # print(Github.commitsDiff())
