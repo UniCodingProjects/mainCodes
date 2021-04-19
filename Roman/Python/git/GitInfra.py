@@ -41,7 +41,7 @@ class GitHub:
 
     def gitCommitAll(self, message):
         try:
-            return self.cmd.commit(f"-m {message}")
+            return self.cmd.commit(f"-m", message)
         except GitCommandError as ex:
             print(ex)
 
@@ -75,8 +75,8 @@ if __name__ == '__main__':
     Github = GitHub()
     print(Github.gitStatus())
     print(Github.getActiveBranch())
-    # Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
-    # Github.gitCommitAll("-m git actions repo")
-    # Github.gitPush()
+    Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
+    Github.gitCommitAll("-m git actions repo")
+    Github.gitPush()
     # print(Github.gitStatus())
     # print(Github.commitsDiff())
