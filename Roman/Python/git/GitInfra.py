@@ -1,5 +1,5 @@
 from git import *
-from git import Repo, cmd, GitCommandError
+from git import Repo, cmd, GitCommandError, RepositoryDirtyError
 
 import os
 
@@ -51,6 +51,7 @@ class GitHub:
                 raise ex
         else:
             print("Fetch, Rebase, and Push again")
+            raise RepositoryDirtyError("Fetch, Rebase, and Push again")
 
     def commitsDiff(self):
         commits = list()
