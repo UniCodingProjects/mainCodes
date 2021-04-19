@@ -26,24 +26,30 @@ class GitHub:
 
     def gitRebase(self):
         self.cmd.fetch()
-        self.cmd.rebase()
+        return self.cmd.rebase()
 
     def gitPull(self):
         self.cmd.fetch()
-        self.cmd.pull()
+        return self.cmd.pull()
 
     def gitAddAll(self):
-        self.cmd.add(".")
+        return self.cmd.add(".")
 
     def gitAddSpecific(self, *args):
         for arg in args:
-            self.cmd.add(arg)
+            print(self.cmd.add(arg))
 
     def gitCommitAll(self, message):
-        self.cmd.commit(f"-m {message}")
+        return self.cmd.commit(f"-m {message}")
 
     def gitPush(self):
-        self.cmd.push()
+        return self.cmd.push()
+
+    def commitsDiff(self):
+        branch = self.repo.active_branch
+        commsDiff = self.repo.git.rev_list('--left-right', '--count', f'{branch}...origin/master@{{u}}')
+        ahead, behind = commsDiff.split('\t')
+        print(ahead, "__fag__", behind)
 
 
 Github = GitHub()
@@ -52,4 +58,5 @@ Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
 Github.gitCommitAll("-m git actions repo")
 Github.gitPush()
 print(Github.gitStatus())
+print(Github.commitsDiff())
 pass
