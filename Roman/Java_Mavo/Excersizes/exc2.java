@@ -3,6 +3,11 @@ import java.util.Arrays;
 public class exc2 {
     private int _b = 5;
 
+    public exc2(int num, String name){
+        _b = num;
+        System.out.println(name);
+    }
+
     public int getB(){
         return this._b;
     }
@@ -13,6 +18,10 @@ class exc3 extends exc2 {
     private boolean stop = false;
     private int[] arr;
     private boolean sizeSet = false;
+
+    public exc3(int num){
+        super(num, "fag");
+    }
 
     public int getA(){
         return this._a;
@@ -41,11 +50,22 @@ class exc3 extends exc2 {
 
 
     public static void main(String[] args){
-        exc3 checkInh = new exc3();
+        exc3 checkInh = new exc3(7);
         System.out.println(checkInh.getB());
         System.out.println(checkInh.getA());
-        exc2 checkI = new exc2();
+        exc2 checkI = new exc2(7, "gay");
         System.out.println("====");
         checkInh.recurse(0, 5);
     }
+}
+
+
+
+
+
+interface fag{
+    default void getFag(){
+
+    }
+
 }

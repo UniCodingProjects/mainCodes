@@ -28,21 +28,43 @@ class myClass:
         print(self.X)
 
 
+class A:
+    def __init__(self, word):
+        self.word = word
+        print(word)
 
-C = myClass()
-print(repr(C))
-C.print()
-C.X = 2
-C.print()
+    def __repr__(self):
+        return self.word
 
-
-
-
-
-
+    def getName(self):
+        return self.word
 
 
+class B:
+    def __init__(self, name):
+        super(B, self).__init__(word="gay")
+        print(name)
+        self.name = name
+
+    def getName2(self):
+        return self.name
 
 
+class C(B, A):
+    def __init__(self):
+        super(C, self).__init__(name="fag")
+        print("C")
+
+    def __repr__(self):
+        return "wtf"
+
+    def getNames(self):
+        return self.getName() + self.getName2()
+
+    def getNameFromB(self):
+        return getattr(self, "getName2")()
 
 
+c = C()
+print(c.getNames())
+print(c.getNameFromB())
