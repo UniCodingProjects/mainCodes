@@ -51,7 +51,7 @@ class GitHub:
                 raise ex
         else:
             print("Fetch, Rebase, and Push again")
-            raise RepositoryDirtyError(self.repo, "Fetch, Rebase, and Push again")
+            raise RepositoryDirtyError(self.repo.active_branch.repo, "Fetch, Rebase, and Push again")
 
     def commitsDiff(self):
         commits = list()
