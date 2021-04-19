@@ -1,5 +1,5 @@
 from git import *
-from git import Repo, cmd
+from git import Repo, cmd, GitCommandError
 
 import os
 
@@ -43,13 +43,19 @@ class GitHub:
         return self.cmd.commit(f"-m {message}")
 
     def gitPush(self):
-        return self.cmd.push()
+        try:
+            return self.cmd.push()
+        except GitCommandError as ex:
+            print(f"Cant push: {ex}")
+            raise ex
 
     def commitsDiff(self):
-        branch = self.repo.active_branch
-        commsDiff = self.repo.git.rev_list('--left-right', '--count', f'{branch}...origin/master@{{u}}')
-        ahead, behind = commsDiff.split('\t')
-        print(ahead, "__fag__", behind)
+        commits = list()
+        branch = self.repo.active_branch.name
+        commitsBehind = Github.repo.iter_commits(f'{branch}..origin/master')
+        for commit in commitsBehind:
+            commits.append(commit)
+        print(f"Commits behind: {len(commits)}")
 
 
 Github = GitHub()
