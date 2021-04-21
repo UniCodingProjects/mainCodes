@@ -73,7 +73,7 @@ public class RGBImage {
         }
     }
 
-    public void rotateClockwise() { //needs fixing
+    public void rotateClockwise() { // needs fixing
         RGBColor temp;
         for (int i = 0; i < getHeight()/2 ; ++i) {
             for (int j = 0; j < getWidth() -i -1; ++j) {
