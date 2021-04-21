@@ -1,3 +1,17 @@
+
+/* ********** Test Q2 Triangle- Start **********
+	 ERROR -  aliasing in second constructor - the points can be changed outside of the  Triangle class. You should place copies of the points in the attributes.
+	 ERROR - aliasing - getPoint1. You should return a copy of the Point so that the attribute cannot be changed from outside the Triangle class.
+	 ERROR - aliasing - getPoint2. You should return a copy of the Point so that the attribute cannot be changed from outside the Triangle class.
+	 ERROR - aliasing - getPoint3. You should return a copy of the Point so that the attribute cannot be changed from outside the Triangle class.
+	 ERROR - setPoint1 aliasing- you should make a copy of the point so that the point cannot be changed from outside the Triangle class.
+	 ERROR - setPoint2 aliasing- you should make a copy of the point so that the point cannot be changed from outside the Triangle class.
+	 ERROR - setPoint3 aliasing- you should make a copy of the point so that the point cannot be changed from outside the Triangle class.
+	 ERROR - t17.isContainedInCircle(0.0,0.0,1.0) expected true ; actual=false;  t17={(1.0,0.0),(0.0,0.0),(0.0,1.0)}
+	 ERROR - aliasing - highestPoint. You should return a copy of the Point so that the attribute cannot be changed from outside the Triangle class.
+	 ERROR - aliasing - lowestPoint. You should return a copy of the Point so that the attribute cannot be changed from outside the Triangle class.
+********** Test Q2 Triangle - Finished ********** */
+
 /**
  * Class that represents a triangle object in 2D space.
  * Used to check various triangle characteristics and compare to another triangle class.
@@ -310,13 +324,13 @@ public class Triangle {
      */
     public boolean isContainedInCircle(double x , double y, double r){
         Point circlePoint = new Point(x, y);
-        if (r - this._point1.distance(circlePoint) < EPSILON){
+        if (!(Math.abs(this._point1.distance(circlePoint)) <= r)){
             return false;
         }
-        else if (r - this._point2.distance(circlePoint) < EPSILON){
+        else if (!(Math.abs(this._point2.distance(circlePoint)) <= r)){
             return false;
         }
-        else if (r - this._point3.distance(circlePoint) < EPSILON){
+        else if (!(Math.abs(this._point3.distance(circlePoint)) <= r)){
             return false;
         }
         else {
@@ -405,5 +419,12 @@ public class Triangle {
             }
         }
         return false;
+    }
+
+    public static void main(String[] args){
+        Triangle t17= new Triangle(new Point(-5.0,0.0),new Point(0.0,0.0),new Point(0.0,1.0));
+        System.out.println(t17.isContainedInCircle(0.0,0.0,1));
+
+
     }
 }

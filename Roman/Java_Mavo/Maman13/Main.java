@@ -2,7 +2,7 @@
 
 import javax.swing.JFrame;
 
-public class Main {
+class Main {
     public Main() {
     }
 

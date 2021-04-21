@@ -127,7 +127,7 @@ public class RGBImage {
      * @return returns RGBColor object that represents the desired pixel
      */
     public RGBColor getPixel(int row, int col) {
-        return this.checkCoordinatesValidity(row, col) ? this._image[row][col] : new RGBColor();
+        return this.checkCoordinatesValidity(row, col) ? new RGBColor(this._image[row][col]) : new RGBColor();
     }
 
     /**
@@ -213,7 +213,7 @@ public class RGBImage {
     public void invertColors() {
         for (int i = 0; i < this.getHeight(); i++) {
             for (int j = 0; j < this.getWidth(); j++) {
-                this.getPixel(i, j).invert();
+                this._image[i][j].invert();
             }
         }
     }
@@ -296,8 +296,8 @@ public class RGBImage {
      */
     public String toString() {
         StringBuilder imageString = new StringBuilder();
-        for (int i = 0; i < _image.length; i++) {
-            for (int j = 0; j < _image[i].length; j++) {
+        for (int i = 0; i < this.getHeight(); i++) {
+            for (int j = 0; j < this.getWidth(); j++) {
                 imageString.append(this.getPixel(i, j) + " ");
             }
             imageString.append("\n");
