@@ -29,8 +29,9 @@ class GitHub:
         return self.cmd.rebase()
 
     def gitPull(self):
-        self.cmd.fetch()
-        return self.cmd.pull()
+        fetchData = self.cmd.fetch()
+        if len(str(fetchData)) > 0:
+            return self.cmd.pull()
 
     def gitAddAll(self):
         return self.cmd.add(".")
@@ -77,6 +78,7 @@ if __name__ == '__main__':
     print(Github.getActiveBranch())
     Github.gitAddSpecific(["Roman/Python/git/GitInfra.py"])
     Github.gitCommitAll("-m git actions repo")
+    Github.gitPull()
     Github.gitPush()
     # print(Github.gitStatus())
     # print(Github.commitsDiff())
