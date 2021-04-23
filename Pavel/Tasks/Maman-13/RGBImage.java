@@ -1,43 +1,96 @@
-
+/** RGBImage - A class that represents a color image object via a 2-dimensional array where each block in the array
+ *  represents a pixel made of an object that holds 3 values for each color of red,green and blue.
+ *  Provides various methods allowing the user to manipulate the image.
+ *
+ * @author Pavel Butov
+ * @version Maman 13
+ */
 public class RGBImage {
     private RGBColor[][] _image;
 
+    /**
+     * Constructor
+     * Instantiates a new RGBImage with of default color(black) using the dimensions provided by the user
+     *
+     * @param rows amount rows in the image
+     * @param cols amount of columns in the image
+     */
     public RGBImage(int rows, int cols) {
         _image = new RGBColor[rows][cols];
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
-//                _image  = new RGBColor[i][j];
                 _image[i][j] = new RGBColor();
             }
         }
-//        System.out.println(_image[0][0]);
     }
 
+    /**
+     * Constructor
+     * Instantiates a new RGBImage using an array as a parameter for dimensions
+     *
+     * @param pixels
+     */
     public RGBImage(RGBColor[][] pixels) {
         _image = pixels;
     }
 
+    /**
+     * Copy Constructor
+     * Instantiates a new RGBImage object
+     *
+     * @param other another RGBImage object
+     */
     public RGBImage(RGBImage other) {
         _image = other._image;
     }
 
+    /**
+     * Get number of rows
+     *
+     * @return returns the amount of rows in the _image array
+     */
     public int getHeight() {
         return _image.length;
     }
 
+    /**
+     * Get number of columns
+     *
+     * @return returns the amount of columns in the _image array
+     */
     public int getWidth() {
         return _image[0].length;
     }
 
-    public RGBColor getPixel(int row, int col) { // row and col number starts from 0, if rows selected is 2 {0,1}
+    /**
+     * Get the pixel in specified index of the array
+     *
+     * @param row row number
+     * @param col column number
+     * @return returns the RGB value of the specified location
+     */
+    public RGBColor getPixel(int row, int col) {
         if ((row >= getHeight() || col >= getWidth())) return new RGBColor();
         return new RGBColor(_image[row][col]);
     }
 
+    /**
+     * Set the pixel in a specified index of the array
+     *
+     * @param row row number
+     * @param col column number
+     * @param pixel parameter containing the RGB values
+     */
     public void setPixel(int row, int col, RGBColor pixel) {
         _image[row][col] = new RGBColor(pixel);
     }
 
+    /**
+     * Equals boolean
+     *
+     * @param other other image object to compare to
+     * @return returns true if the image is similar to the other, otherwise returns false
+     */
     public boolean equals(RGBImage other) {
         if (this._image.length == other._image.length && this._image[0].length == other._image[0].length) {
             for (int i = 0; i < _image.length; ++i) {
@@ -53,6 +106,11 @@ public class RGBImage {
         return true;
     }
 
+    /**
+     * Horizontal flip
+     *
+     * flips the image horizontally
+     */
     public void flipHorizontal() {
         RGBColor temp;
         for (int i = 0; i < getHeight(); ++i) {
@@ -64,6 +122,11 @@ public class RGBImage {
         }
     }
 
+    /**
+     * Vertical flip
+     *
+     * flips the image vertically
+     */
     public void flipVertical() {
         RGBColor temp;
         for (int i = 0; i < getHeight() / 2; ++i) {
@@ -73,9 +136,13 @@ public class RGBImage {
                 _image[getHeight() - 1 - i][j] = temp;
             }
         }
-
     }
 
+    /**
+     * Invert colors
+     *
+     * inverts the colors of the image
+     */
     public void invertColors() {
         for (int i = 0; i < getHeight(); ++i) {
             for (int j = 0; j < getWidth(); ++j) {
@@ -84,6 +151,11 @@ public class RGBImage {
         }
     }
 
+    /**
+     * Rotate clockwise
+     *
+     * rotates the image 90 degrees clockwise
+     */
     public void rotateClockwise() {
         RGBColor[][] temp = new RGBColor[getWidth()][getHeight()];
         for (int i = 0; i < getHeight(); ++i) {
@@ -94,6 +166,11 @@ public class RGBImage {
         _image = temp;
     }
 
+    /**
+     * Rotate counter clockwise
+     *
+     * rotates the image 90 degrees counter clockwise
+     */
     public void rotateCounterClockwise() {
         RGBColor[][] temp = new RGBColor[getWidth()][getHeight()];
         for (int i = 0; i < getHeight(); ++i) {
@@ -104,6 +181,12 @@ public class RGBImage {
         _image = temp;
     }
 
+    /**
+     * shiftColumn
+     *
+     * shifts the columns of the image by a chosen offset
+     * @param offset amount of pixels to shift the image by
+     */
     public void shiftCol(int offset) {
         RGBColor[][] temp = new RGBColor[getHeight()][getWidth()];
         for (int i = 0; i < getHeight(); ++i) {
@@ -127,6 +210,12 @@ public class RGBImage {
         _image = temp;
     }
 
+    /**
+     * shiftRow
+     *
+     * shifts the columns of the image by a chosen offset
+     * @param offset amount of rows to shift the image by
+     */
     public void shiftRow(int offset) {
         RGBColor[][] temp = new RGBColor[getHeight()][getWidth()];
         for (int i = 0; i < getHeight(); ++i) {
@@ -150,6 +239,11 @@ public class RGBImage {
         _image = temp;
     }
 
+    /**
+     * toGrayscale
+     *
+     * @return returns grayscale array with a single value
+     */
     public double[][] toGrayscaleArray() {
         double[][] gray = new double[getHeight()][getWidth()];
         for (int i = 0; i < getHeight(); ++i) {
@@ -160,8 +254,12 @@ public class RGBImage {
         return gray;
     }
 
+    /**
+     * toString
+     *
+     * @return returns the array in a string format
+     */
     public String toString() {
-//        String print = new String();
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < getHeight(); ++i) {
             for (int j = 0; j < getWidth(); ++j) {
@@ -172,92 +270,13 @@ public class RGBImage {
         return string.toString();
     }
 
+    /**
+     * toRGBColorArray
+     *
+     * @return returns a copy of the pixel array
+     */
     public RGBColor[][] toRGBColorArray() {
         RGBImage arrayCopy = new RGBImage(_image);
         return arrayCopy._image;
-
     }
-
-
-//    public void printing(){
-//        for (int i = 0 ; i < getHeight() ; ++i){
-//            System.out.println("");
-//            for(int j=0 ; j< getWidth() ; ++j){
-//                System.out.print(_image[i][j] + " ");
-//            }
-//        }
-//    }
 }
-
-//
-//public static void main(String[]args){
-//    RGBImage img = new RGBImage(4,4);
-//    RGBImage img4 = new RGBImage(3,3);
-//    RGBColor pix = new RGBColor(255,255,0);
-//    img.setPixel(0,0,pix);
-//    img.setPixel(2,3,pix);
-//    img.setPixel(0,1,pix);
-//    img.setPixel(1,1,pix);
-//    img.setPixel(0,2,pix);
-//    img.setPixel(2,2,pix);
-//    img.setPixel(0,3,pix);
-//    img.setPixel(3,3,pix);
-//    System.out.println(" ");
-////    img.shiftCol(-1);
-////    img.shiftRow(-4);
-////    img.toGrayscaleArray();
-////    img.printing();
-////    img.toString();
-//    System.out.println(img.toString());
-//    img.rotateCounterClockwise();
-//    System.out.println(img.toString());
-////    img.printing();
-////    img.invertColors();
-////    System.out.println(" ");
-////    img.printing();
-////    img.rotateClockwise();
-////    img.printing();
-////    System.out.println(" ");
-//
-////    System.out.print(img._image[0][0]);
-////    System.out.print(img._image[0][1]);
-////    System.out.println(img._image[0][2]);
-////    System.out.print(img._image[1][0]);
-////    System.out.print(img._image[1][1]);
-////    System.out.println(img._image[1][2]);
-////    System.out.print(img._image[2][0]);
-////    System.out.print(img._image[2][1]);
-////    System.out.println(img._image[2][2]);
-////    img.flipHorizontal();
-////    System.out.print(img._image[0][0]);
-////    System.out.print(img._image[0][1]);
-////    System.out.println(img._image[0][2]);
-////    System.out.print(img._image[1][0]);
-////    System.out.print(img._image[1][1]);
-////    System.out.println(img._image[1][2]);
-////    System.out.print(img._image[2][0]);
-////    System.out.print(img._image[2][1]);
-////    System.out.println(img._image[2][2]);
-////    int x = img._image[0].length; // cols
-////    int y = img._image.length; // rows
-////    System.out.println(x +" "+ y);
-////    System.out.println(img.getHeight() + " " + img.getWidth());
-////    System.out.println(img.getPixel(1,1));
-////        RGBColor color = new RGBColor();
-////    RGBColor pixel = new RGBColor(255,0,0);
-////    RGBColor[][] pixels = new RGBColor[2][3];
-////    RGBImage img3 = new RGBImage(5,4);
-////    img4.setPixel(2,0,pixel);
-////    System.out.println(img3.getPixel(2,0));
-////    System.out.println(img.equals(img4));
-////    System.out.println(img.getPixel(2,2)); // array actually starts at 0 therefore 2 is 3rd place in array
-////    img3.setPixel(5,3, test);
-////    System.out.println(img2.getHeight() + " " + img2.getWidth());
-////    System.out.println(img4.getPixel(2,0));
-////    System.out.println(img3.getPixel(2,2));
-////        System.out.print(img2[1][1]);
-////        System.out.print(img2[1][1]);
-////        System.out.print(color);
-////       System.out.println(img);
-//}
-//}
