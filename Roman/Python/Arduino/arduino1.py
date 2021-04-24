@@ -11,7 +11,7 @@ from pyfirmata import INPUT, OUTPUT, PWM
 class Arduino:
     def __init__(self, address="COM3"):
         if 'pyfirmata' not in pkg_resources.working_set.by_key:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", 'kivy'])
+            subprocess.check_call([sys.executable, "-m", "pip", "install", 'pyfirmata'])
         self.arduino = pyfirmata.Arduino(address)
 
     def __del__(self):

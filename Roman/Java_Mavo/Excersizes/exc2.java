@@ -63,9 +63,44 @@ class exc3 extends exc2 {
 
 
 
-interface fag{
-    default void getFag(){
 
+
+abstract class sexualOrientetion{
+    protected String[] normal = {"male", "female"};
+    protected String _gender;
+    protected String nonBinaryIdentifier = "0";
+
+    public sexualOrientetion(String gender){
+        _gender = gender;
+        System.out.printf("welcome: %S\n".toLowerCase(), _gender);
     }
+    public String getGender(){
+        return _gender;
+    }
+    abstract void switchGender();
+    abstract void transformNonBinary();
+}
 
+
+class Gender extends sexualOrientetion{
+    public Gender(String gender){
+        super(gender);
+    }
+    public void switchGender(){
+        if (super._gender.equals(super.nonBinaryIdentifier)){
+            System.out.println("person is fucked up beyond repair, aborting operation (too late)");
+            return;
+        }
+        for (String orien : super.normal){
+            if (!orien.equals(super._gender)){
+                String prevGender = super._gender;
+                super._gender = orien;
+                System.out.printf("ergpirjhgoiherg =>>> %S is now %S :(((( \n",prevGender, super._gender);
+            }
+        }
+    }
+    public void transformNonBinary(){
+        System.out.println("transformed to some shit, no way back");
+        super._gender = "0";
+    }
 }
