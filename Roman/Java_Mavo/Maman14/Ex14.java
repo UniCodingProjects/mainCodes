@@ -75,6 +75,5 @@ public class Ex14 {
 
 
         System.out.println(size(mat, 1, 0));
-
     }
 }
