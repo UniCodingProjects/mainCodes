@@ -67,8 +67,12 @@ public class Ex14 {
         return -1;
     }
     public static void main(String[] args){
-        boolean[][] mat = {{true, false},
-                           {true, false}};
+        boolean[][] mat = {
+               {true, false, true},
+               {true, false, false},
+               {true, false, false}
+        };
+
 
         System.out.println(size(mat, 1, 0));
 
