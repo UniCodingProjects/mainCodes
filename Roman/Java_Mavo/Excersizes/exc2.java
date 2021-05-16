@@ -67,7 +67,7 @@ class exc3 extends exc2 {
 
 abstract class sexualOrientetion{
     protected String[] normal = {"male", "female"};
-    protected String _gender;
+    private String _gender;
     protected String nonBinaryIdentifier = "0";
 
     public sexualOrientetion(String gender){
@@ -79,28 +79,65 @@ abstract class sexualOrientetion{
     }
     abstract void switchGender();
     abstract void transformNonBinary();
+    public void setGender(String gender){
+        _gender = gender;
+    }
+}
+
+
+class abomination extends sexualOrientetion{
+    public abomination(){
+        super("FUCK YOU");
+    }
+
+    public void switchGender(){
+        System.out.println("CANTTTTT");
+    }
+
+    public void transformNonBinary(){
+        System.out.println("AAAAAAAAAAAAA");
+    }
 }
 
 
 class Gender extends sexualOrientetion{
+    private String fag = "fag";
+
     public Gender(String gender){
         super(gender);
     }
     public void switchGender(){
-        if (super._gender.equals(super.nonBinaryIdentifier)){
+        if (super.getGender().equals(super.nonBinaryIdentifier)){
             System.out.println("person is fucked up beyond repair, aborting operation (too late)");
             return;
         }
         for (String orien : super.normal){
-            if (!orien.equals(super._gender)){
-                String prevGender = super._gender;
-                super._gender = orien;
-                System.out.printf("ergpirjhgoiherg =>>> %S is now %S :(((( \n",prevGender, super._gender);
+            if (!orien.equals(super.getGender())){
+                String prevGender = super.getGender();
+                super.setGender(orien);
+                System.out.printf("ergpirjhgoiherg =>>> %S is now %S :(((( \n",prevGender, super.getGender());
+                return;
             }
         }
     }
     public void transformNonBinary(){
         System.out.println("transformed to some shit, no way back");
-        super._gender = "0";
+        super.setGender("0");
+    }
+}
+
+class fagChild extends Gender{
+    public fagChild(String gender){
+        super(gender);
+    }
+
+    public void getGaylordness(){
+        System.out.println("over 9000");
+    }
+    public String getGender(){
+        return super.getGender() + "_Fag";
+    }
+    public static void main(String[] args){
+        fagChild fag = new fagChild("fagg");
     }
 }

@@ -77,7 +77,7 @@ if __name__ == '__main__':
     print(Github.gitStatus())
     print(Github.getActiveBranch())
     Github.gitAddSpecific(["Roman"])
-    Github.gitCommitAll("-m update roman fold")
+    Github.gitCommitAll("update roman fold")
     Github.gitPull()
     Github.gitPush()
     # print(Github.gitStatus())
