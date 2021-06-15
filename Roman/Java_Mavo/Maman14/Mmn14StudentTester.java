@@ -19,45 +19,45 @@ public class Mmn14StudentTester {
 //		System.out.println("\n************ test Q1 - maximalDrop END *************\n");
 //
 //		System.out.println("************ test Q2 - isSink START *************");
-		int[][] m1 = { // sink=1
-				{ 0, 1 },
-				{ 0, 0 } };
-
-		int[][] m2 = { // sink=2
-				{ 0, 1, 1 },
-				{ 0, 1, 1 },
-				{ 0, 0, 0 } };
-
-		int[][] m3 = { // sink=2
-				{ 0, 1, 1, 0 },
-				{ 0, 1, 1, 1 },
-				{ 0, 0, 0, 0 },
-				{ 0, 1, 1, 0 } };
-
-		int[][] m4 = { // sink=-1
-				{ 0, 1, 1, 0 },
-				{ 0, 0, 0, 0 },
-				{ 0, 1, 1, 1 },
-				{ 0, 0, 0, 0 } };
-
-		int[][] m5 = { // sink=1
-				{ 0, 1, 1, 1 },
-				{ 0, 0, 0, 0 },
-				{ 0, 1, 1, 1 },
-				{ 0, 1, 1, 0 } };
-
-		int[][] m6 = { // sink=1
-				{ 0, 1, 1, 1 },
-				{ 0, 0, 0, 0 },
-				{ 0, 1, 0, 1 },
-				{ 0, 1, 1, 0 } };
-
-		int[][] m7 = { // sink=1
-				{ 0, 0 },
-				{ 0, 1 } };
+//		int[][] m1 = { // sink=1
+//				{ 0, 1 },
+//				{ 0, 0 } };
 //
+//		int[][] m2 = { // sink=2
+//				{ 0, 1, 1 },
+//				{ 0, 1, 1 },
+//				{ 0, 0, 0 } };
+//
+//		int[][] m3 = { // sink=2
+//				{ 0, 1, 1, 0 },
+//				{ 0, 1, 1, 1 },
+//				{ 0, 0, 0, 0 },
+//				{ 0, 1, 1, 0 } };
+//
+//		int[][] m4 = { // sink=-1
+//				{ 0, 1, 1, 0 },
+//				{ 0, 0, 0, 0 },
+//				{ 0, 1, 1, 1 },
+//				{ 0, 0, 0, 0 } };
+//
+//		int[][] m5 = { // sink=1
+//				{ 0, 1, 1, 1 },
+//				{ 0, 0, 0, 0 },
+//				{ 0, 1, 1, 1 },
+//				{ 0, 1, 1, 0 } };
+//
+//		int[][] m6 = { // sink=1
+//				{ 0, 1, 1, 1 },
+//				{ 0, 0, 0, 0 },
+//				{ 0, 0, 0, 1 },
+//				{ 0, 1, 1, 0 } };
+//
+//		int[][] m7 = { // sink=1
+//				{ 0, 0 },
+//				{ 0, 1 } };
+////
 		int[][] m10 = { // sink=1
-				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0},
+				{ 0,1, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0},
 				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0},
 				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0},
 				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0},
@@ -75,12 +75,12 @@ public class Mmn14StudentTester {
 				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0},
 				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0},
 				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0},
-				{ 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0}};
+				{ 0,1, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 1,0, 0}};
 
 		int res;
-//		System.out.println(m10.length + " " + m10[0].length);
-//		res = Ex14.isSink(m10);
-//		System.out.println("\nrunning isSink(m10); expected WTF,  got " + res);
+		System.out.println(m10.length + " " + m10[0].length);
+		res = Ex14.isSink(m10);
+		System.out.println("\nrunning isSink(m10); expected WTF,  got " + res);
 //
 //		res = Ex14.isSink(m7);
 //		System.out.println("\nrunning isSink(m7); expected -1,  got " + res);
@@ -101,34 +101,34 @@ public class Mmn14StudentTester {
 //
 //		res = Ex14.isSink(m5);
 //		System.out.println("\nrunning isSink(m5); expected 1,  got " + res);
+
+		System.out.println("\n************ test Q2 - isSink END *************");
+
 //
-//		System.out.println("\n************ test Q2 - isSink END *************");
+//		boolean [][]a = {
+//				{true, 	false, 	false, 	true},
+//				{false, true, 	false, 	false},
+//				{false, true, 	false, 	true},
+//				{false, false, 	false, 	true},
+//				{true, 	true, 	true, 	false}
+//		};
+//		System.out.println("************ test Q3 - size START *************");
 //
-
-		boolean [][]a = {
-				{true, 	false, 	false, 	true},
-				{false, true, 	false, 	false},
-				{false, true, 	false, 	true},
-				{false, false, 	false, 	true},
-				{true, 	true, 	true, 	false}
-		};
-		System.out.println("************ test Q3 - size START *************");
-
-		res = Ex14.size(a, 0, 0);
-		System.out.println("\nrunning size(a, 0, 0); expected 3, got " + res);
-
-		res = Ex14.size(a, 1, 1);
-		System.out.println("\nrunning size(a, 1, 1); expected 3, got " + res);
-
-		res = Ex14.size(a, 2, 2);
-		System.out.println("\nrunning size(a, 2, 2); expected 0, got " + res);
-
-		res = Ex14.size(a, 4, 0);
-		System.out.println("\nrunning size(a, 4, 0); expected 5, got " + res);
-
-		System.out.println("\n************ test Q3 - size END *************");
-
-
+//		res = Ex14.size(a, 0, 0);
+//		System.out.println("\nrunning size(a, 0, 0); expected 3, got " + res);
+//
+//		res = Ex14.size(a, 1, 1);
+//		System.out.println("\nrunning size(a, 1, 1); expected 3, got " + res);
+//
+//		res = Ex14.size(a, 2, 2);
+//		System.out.println("\nrunning size(a, 2, 2); expected 0, got " + res);
+//
+//		res = Ex14.size(a, 4, 0);
+//		System.out.println("\nrunning size(a, 4, 0); expected 5, got " + res);
+//
+//		System.out.println("\n************ test Q3 - size END *************");
+//
+//
 //		System.out.println("\n************ test Q4 - isPermutation START *************");
 //		int [] c1 = {1, 2, 3, 4};
 //		int [] b1 = {1, 2, 3, 4};
@@ -157,7 +157,5 @@ public class Mmn14StudentTester {
 //
 //
 //		System.out.println("\n************ test Q4 - isPermutation END *************");
-
 	}
-
 }
