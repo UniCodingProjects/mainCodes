@@ -1,12 +1,16 @@
-from git import *
-from git import Repo, cmd, GitCommandError, RepositoryDirtyError
-
 import os
+
+from git import cmd, repo
+from git import *
+
+
+def initGit():
+    return GitHub()
 
 
 class GitHub:
     def __init__(self):
-        self.repo = Repo(os.path.join(__file__, "..\\" * 4))
+        self.repo = Repo(os.path.join(__file__, "..\\" * 5))
         self.cmd = cmd.Git(self.repo.working_dir)
         self.dirty = self.repo.is_dirty()
         self.lastCCommitterName = self.repo.commit().author.name
