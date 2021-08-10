@@ -28,6 +28,9 @@ class GitHub:
     def getActiveBranch(self):
         return self.repo.active_branch
 
+    def gitFetch(self):
+        self.cmd.fetch()
+
     def gitRebase(self):
         self.cmd.fetch()
         return self.cmd.rebase()
@@ -78,11 +81,12 @@ class GitHub:
 
 if __name__ == '__main__':
     Github = GitHub()
+    Github.gitFetch()
     print(Github.gitStatus())
     print(Github.getActiveBranch())
     Github.gitAddSpecific(["Roman"])
     Github.gitCommitAll("update roman fold")
     Github.gitPull()
     Github.gitPush()
-    # print(Github.gitStatus())
-    # print(Github.commitsDiff())
+    print(Github.gitStatus())
+    print(Github.commitsDiff())

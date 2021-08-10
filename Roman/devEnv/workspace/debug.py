@@ -311,21 +311,6 @@ def isPermutation(s, t):
     return len(d.keys()) == 0
 
 
-s = "abccbaabcabadd"
-t = "abc"
-
-i = 0
-j = len(t) + i
-
-
-def runIspermutDIct():
-    while j < len(s):
-        if isPermutation(s[i:j], t):
-            print(s[i:j])
-        i += 1
-        j += 1
-
-
 def permute1(s, answer):
     if (len(s) == 0):
         print(answer)
@@ -347,4 +332,91 @@ def permute(string, toPrint):
         print(toPrint)
 
 
-permute(t, "")
+def isPalindrome(s: str) -> bool:
+    from collections import deque
+    st = deque()
+    for i in s:
+        if i.isalnum():
+            st.append(i.casefold())
+    for i in range(len(s)):
+        if not s[i].isalnum():
+            continue
+        if s[i].casefold() == st.pop():
+            continue
+        else:
+            return False
+    return True
+
+
+def isPalindrome2(s: str) -> bool:
+    newS = ""
+    for i in s:
+        if i.isalnum():
+            newS += i.casefold()
+    k = 0
+    j = len(newS) - 1
+    while k < j:
+        if newS[k] == newS[j]:
+            k += 1
+            j -= 1
+        else:
+            return False
+    return True
+
+
+def myAtoi(s: str) -> int:
+    if len(s) == 0:
+        return 0
+    t = ""
+    sign = 1
+    singed = False
+    if not s[0].isdigit() and s[0] != ' ' and s[0] != "+" and s[0] != '-':
+        return 0
+    idx = 0
+    for i in s:
+        if i.isdigit() is False:
+            if len(t) > 0:
+                break
+            if len(t) == 0:
+                if i == "+":
+                    if idx > 0 and len(t) > 0:
+                        return 0
+                    if len(t) > 0:
+                        return 0
+                    if singed:
+                        return 0
+                    sign = sign * 1
+                    singed = True
+                    idx += 1
+                    continue
+                elif i == "-":
+                    if idx > 0 and len(t) > 0:
+                        return 0
+                    if len(t) > 0:
+                        return 0
+                    if singed:
+                        return 0
+                    sign = sign * -1
+                    singed = True
+                    idx += 1
+                    continue
+                elif i == ' ' and singed or i.isalnum() and idx > 0 and len(t) == 0:
+                    return 0
+                idx += 1
+                continue
+        if i.isdigit():
+            t += i
+            idx += 1
+            continue
+        idx += 1
+    if len(t) == 0:
+        return 0
+    integer = int(t) * sign
+    if integer > pow(2, 31) -1:
+        return pow(2, 31) -1
+    elif integer < pow(-2, 31):
+        return pow(-2, 31)
+    return integer
+
+
+print(myAtoi("  +  413"))
