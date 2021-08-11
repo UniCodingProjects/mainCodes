@@ -6,7 +6,7 @@ import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 
-from infra.Arduino.arduino1 import initArduino
+# from infra.Arduino.arduino1 import initArduino
 
 
 # arduino:
@@ -38,6 +38,12 @@ class Stack:
         num = self.stack[self.idx]
         self.idx += 1
         return num
+
+    def peek(self):
+        if self.len > 0:
+            num = self.pop()
+            self.push(num)
+            return num
 
 
 s = ["f", "a", 'g']
@@ -329,6 +335,7 @@ def permute(string, toPrint):
         for i in range(len(string)):
             permute(string[0:i] + string[i + 1:], toPrint + string[i])
     else:
+<<<<<<< HEAD
         print(toPrint)
 
 
@@ -417,6 +424,3 @@ def myAtoi(s: str) -> int:
     elif integer < pow(-2, 31):
         return pow(-2, 31)
     return integer
-
-
-print(myAtoi("  +  413"))
