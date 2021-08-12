@@ -154,6 +154,70 @@ class Solution:
             return newX * -1
         return newX
 
+"aabccaabbbbbbbaaaaz"
+"abc"
+"aabaab"
 
-s = Solution()
-print(s.reverse(-2147483412))
+from Roman.devEnv.workspace.debug import Stack
+
+
+
+def firstUniqChar(s: str) -> int:
+    d = dict()
+    for char in s:
+        if d.get(char, None) is None:
+            d[char] = 1
+        else:
+            d[char] += 1
+    for k, v in d.items():
+        if v == 1:
+            return s.index(k)
+    return -1
+
+
+def firstuniqeWithEnumeration(s: str) -> int:
+    d = dict()
+    for char in s:
+        if d.get(char, None) is None:
+            d[char] = 1
+        else:
+            d[char] += 1
+
+    enumerated = enumerate(s)
+    for idx, char in enumerated:
+        if d[char] == 1:
+            return idx
+    return -1
+
+
+def firstUniqueWithCounterAndEnum(s: str) -> int:
+    from collections import Counter
+
+    counterDict = Counter(s)
+    enumerated = enumerate(s)
+
+    for idx, char in enumerated:
+        if counterDict[char] == 1:
+            return idx
+    return -1
+
+
+def isAnagram(s, t):
+    if len(s) != len(t):
+        return False
+    d = dict()
+    for char in s:
+        if d.get(char, None) is None:
+            d[char] = 1
+        else:
+            d[char] += 1
+    for char in t:
+        try:
+            d[char] -= 1
+        except KeyError:
+            return False
+    for k, v in d.items():
+        if v != 0:
+            return False
+    return True
+
