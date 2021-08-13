@@ -335,7 +335,6 @@ def permute(string, toPrint):
         for i in range(len(string)):
             permute(string[0:i] + string[i + 1:], toPrint + string[i])
     else:
-<<<<<<< HEAD
         print(toPrint)
 
 
