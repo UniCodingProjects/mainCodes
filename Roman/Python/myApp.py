@@ -73,9 +73,9 @@ class grid(GridLayout):
         self.pavelError = Label(text="Woke mansplainers are not supported in this app")
         self.sashaError = Label(text='овцы не поддержаюца')
         self.mihaelError = Label(text='ani ani ani ani talinn estonia')
-        self.playMyShit()
+        # self.playMyShit()
 
-    def closeAppZ(self, instance):
+    def closeAppZ(self):
         self.p.terminate()
         App.get_running_app().stop()
 
@@ -99,7 +99,7 @@ class grid(GridLayout):
                                                "date": time.ctime()}
                 self.funcs.saveDictToJson()
                 # noinspection PyAttributeOutsideInit
-                self.orderLabel = Label(text=json.dumps(self.funcs.dictionary, indent=0))
+                self.orderLabel = Label(text=self.orderDisplay())
                 for textBox in self.textsList:
                     textBox.text = ""
                 self.add_widget(self.orderLabel)
@@ -108,6 +108,14 @@ class grid(GridLayout):
             self.add_widget(self.error)
             for textBox in self.textsList:
                 textBox.text = ""
+
+    def orderDisplay(self):
+        t = ""
+        s = json.dumps(self.funcs.dictionary, indent=0)
+        s = s.replace("{\n", "").replace("R", "").replace("\n", "").replace("}", "").replace("\t", "")[5:-1].split(",")
+        for i in s:
+            t += i.replace("\t", "").lstrip(":") + "\n"
+        return t
 
     def checkName(self, name):
         if not self.supportAll:

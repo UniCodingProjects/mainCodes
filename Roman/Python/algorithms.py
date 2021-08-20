@@ -90,5 +90,5 @@ if __name__ == '__main__':
     with time_it("insertion sort"):
         insertion_sort(a)
 
-    # with time_it(merge sort"):
-    #     merge_sort(a, 0, len(a) - 1)
+    with time_it("merge sort"):
+        merge_sort(a, 0, len(a) - 1)
