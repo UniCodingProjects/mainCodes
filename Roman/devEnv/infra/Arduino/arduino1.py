@@ -1,13 +1,13 @@
 import time
-import pyfirmata
+
 import numpy as np
 import pkg_resources
-import sys
-import subprocess
+
+if 'pyfirmata' not in pkg_resources.working_set.by_key:
+    raise ModuleNotFoundError("Install pyfirmata python module to use python to arduino with standard firmata lib")
 
 from serial.serialutil import SerialException
-from serial import Serial
-from pyfirmata import INPUT, OUTPUT, PWM, util, STRING_DATA
+from pyfirmata import INPUT, OUTPUT, PWM, util, STRING_DATA, Arduino as Ardo
 
 
 def initArduino():
@@ -16,8 +16,6 @@ def initArduino():
 
 class Arduino:
     def __init__(self, address="COM3"):
-        if 'pyfirmata' not in pkg_resources.working_set.by_key:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", 'pyfirmata'])
         self.arduino = self._connect(address)
         self.input = INPUT
         self.output = OUTPUT
@@ -32,13 +30,14 @@ class Arduino:
     def _connect(self, address):
         self.connected = False
         try:
-            # self.serialGate = Serial(address, 9600)
-            ard = pyfirmata.Arduino(address)
-            ard.auto_setup()
-            # it = util.Iterator(ard)
-            # it.start()
+            ard = Ardo(address)
+            # ard.auto_setup()
+            # iterator = self.util.Iterator(ard)
+            # iterator.start()
         except SerialException:
             raise SerialException(f"Cannot connect to Arduino through port: {address}, check port / connectivity")
+        except Exception as ex:
+            raise ex
         self.connected = True
         return ard
 

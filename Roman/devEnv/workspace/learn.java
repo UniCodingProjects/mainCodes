@@ -1,9 +1,7 @@
 package Workspace;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
 
+import java.util.HashMap;
 
 class Stack{
     private int[] _stack;
@@ -341,9 +339,9 @@ public class learn {
 //        System.out.println(Arrays.toString(arr2));
 
         int[][] m = {{8, 4, 2, 4, 3},
-                    {6, 3, 8, 4, 5},
-                    {1, 4, 9, 9, 7},
-                    {2, 1, 7, 6, 5}};
+                {6, 3, 8, 4, 5},
+                {1, 4, 9, 9, 7},
+                {2, 1, 7, 6, 5}};
 
         printPathWeights(m);
     }
@@ -424,3 +422,148 @@ class test{
 
 
 }
+
+
+
+
+class longestWom{
+
+    public static int longestWorm(int[][] mat){
+        return longestWorm(mat, 0, 0, 1,1 ,0, 0);
+    }
+
+    public static int longestWorm(int[][] mat, int sX, int sY, int c, int mC, int x, int y){
+        if (sX+1 == mat.length && sY +1 == mat[0].length) return mC;
+
+
+        if (x+1 < mat.length && mat[x+1][y] - mat[x][y] == 1) return longestWorm(mat, sX, sY, c+1, mC, x+1, y);
+
+        if (y+1 < mat[0].length && mat[x][y+1] - mat[x][y] == 1) return longestWorm(mat, sX, sY, c+1, mC, x, y+1);
+
+        if (x-1 >= 0 && mat[x-1][y] - mat[x][y] == 1) return longestWorm(mat, sX, sY, c+1, mC, x-1, y);
+
+        if (y-1 >= 0 && mat[x][y-1] - mat[x][y] == 1) return longestWorm(mat, sX, sY, c+1, mC, x, y-1);
+
+        if (c > mC) mC = c;
+
+        if (sY +1 < mat[0].length) return longestWorm(mat, sX, sY+1, 1, mC, sX, sY+1);
+
+        if (sX +1 < mat[0].length) return longestWorm(mat, sX+1, 0, 1, mC, sX+1, 0);
+
+        return mC;
+    }
+
+    public static boolean what(int n){
+        return (f(n)%2 == 0);
+
+    }
+
+    public static int f (int n){
+        int c = 1;
+        for (int i=2; i<=n;i++){
+            if (n%i == 0) c++;
+        }
+        return c;
+
+    }
+
+    public static boolean subs(int n){
+        int c = 2;
+        if (n == 4 || n % 10 == 4) return false;
+        if (n == 2) return true;
+        if (n == 1) return false;
+        while (true){
+            if (n % 2 == 0){
+                n = n/2;
+                c += 2;
+            }
+            else if (n % Math.sqrt(n) == 0 && n != 1){
+                n = n/(int)Math.sqrt(n);
+                c++;
+            }
+            else{
+                break;
+            }
+        }
+        return c % 2 == 0;
+    }
+
+    public static void main(String[] args){
+        int[][] mat = { {3, 13, 15, 28, 30},
+                {50, 51, 52, 29, 30},
+                {59, 10, 53, 54, 55},
+                {53, 12, 14, 53, 11}};
+
+        for (int i = 1; i < 100; i++) {
+            if (!(subs(i) == what(i))){
+                System.out.println("Testing: " + i);
+                System.out.println("failed");
+            }
+        }
+
+
+    }
+
+
+}
+
+
+class minDIFIFIF{
+    public static int sum1 (int[] arr, int i, int sum){
+        if (i < arr.length){
+            sum += arr[i];
+            i++;
+            return sum1(arr, i, sum);
+        }
+        return sum;
+    }
+
+    public static int remove (int[] arr, int i, int j, int c, int sum){
+        if (i<=j){
+            sum -=arr[i]*2;
+            return remove(arr, i+1, j, c, Math.abs(sum));
+        }
+        else if (sum < c) c = sum;
+        return c;
+    }
+
+    public static int minDiff(int[] arr){
+        int sum = sum1(arr, 0, 0);
+        return minDiff(arr, sum, arr.length-1, arr.length-1, 1, Integer.MAX_VALUE);
+    }
+
+    public static int minDiff(int[] arr, int sum, int i, int j, int diff, int c){
+
+        if (diff+1 == arr.length) return c;
+        c = remove(arr, i, j, c, sum);
+        if (i-diff < 0){
+            diff++;
+            i = arr.length+1 - diff;
+            j = arr.length;
+        }
+        return minDiff(arr, sum, i-1, j-1, diff, c);
+    }
+
+
+    public static void main(String[] args){
+        int[] arr = {1, 2, 7, 17, 6};
+        System.out.println(minDiff(arr));
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
