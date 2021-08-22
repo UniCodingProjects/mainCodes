@@ -1,6 +1,7 @@
 pyrealsense2
 numpy
 pyfirmata
+serial
 pillow
 opencv-python
 pytest
