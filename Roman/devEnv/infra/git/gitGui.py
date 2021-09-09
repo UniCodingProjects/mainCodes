@@ -1,5 +1,7 @@
 from Roman.devEnv.infra.git.GitInfra import initGit
 
+import pickle
+
 
 class GitGui:
     def __init__(self):
@@ -15,11 +17,9 @@ class GitGui:
 
 
 if __name__ == '__main__':
-    a = 5
-
-    b = "asdasd"
-    c= "asdsada"
-
-    d = c + b
-    b = str()
-    list()
+    a = GitGui()
+    b = open("text.txt", "w")
+    # pickle.dump(a, b)
+    p = pickle.Pickler(b)
+    p.dump([1, 2])
+    pass
