@@ -4,10 +4,7 @@ from dataclasses import *
 @dataclass
 class Order:
     name: str
-    main: str
-    side: str
+    side: str = field(repr=False)
     comment: str
-    cash: float
-
-
-print(is_dataclass(Order))
+    cash: float = field(repr=True)
+    main: str = field(default="Pizza", repr=False)
