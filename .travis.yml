@@ -6,4 +6,4 @@ before_install:
   - python --version
   - pip install -U pip
   - pip install -U pytest
-script: pytest -m CI
+script: pytest CI -m CI

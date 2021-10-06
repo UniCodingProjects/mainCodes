@@ -3,3 +3,13 @@ out/
 dist/
 build/
 *.iml
+
+.vscode
+
+# Pycache crap
+.pytest_cache
+__pycache__
+CI/__pycache__
+^__pycache__
+*__pycache__
+.__pycache__

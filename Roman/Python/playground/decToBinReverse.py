@@ -18,10 +18,16 @@ def reversedToDec(num):
     print(n)
 
 
-if __name__ == '__main__':
-    num = int(input("Enter a num: "))
-    if num < 0:
-        exit(0)
-    printBin(num)
-    reverseAndPrintBin(num)
-    reversedToDec(num)
+import pytest
+
+def test_test():
+    print("f")
+
+
+# if __name__ == '__main__':
+#     num = int(input("Enter a num: "))
+#     if num < 0:
+#         exit(0)
+#     printBin(num)
+#     reverseAndPrintBin(num)
+#     reversedToDec(num)
