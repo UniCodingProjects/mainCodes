@@ -1,6 +1,6 @@
 # mainCodes
 
-![Build](https://travis-ci.org/OpenUniCodingProjects/mainCodes.svg?branch=Master)
+![Build](https://travis-ci.com/OpenUniCodingProjects/mainCodes.svg?branch=Master)
 
 Visitors count:
 
