@@ -1,4 +1,7 @@
-from Roman.devEnv.infra.git.GitInfra import initGit
+from GitInfra import initGit
+
+
+import pickle
 
 
 class GitGui:
@@ -15,11 +18,4 @@ class GitGui:
 
 
 if __name__ == '__main__':
-    a = 5
-
-    b = "asdasd"
-    c= "asdsada"
-
-    d = c + b
-    b = str()
-    list()
+    a = GitGui()

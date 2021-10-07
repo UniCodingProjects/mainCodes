@@ -3,3 +3,10 @@ out/
 dist/
 build/
 *.iml
+
+.vscode
+
+# Pycache crap
+.pytest_cache
+*.pyc
+*.pyo
