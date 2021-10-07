@@ -18,4 +18,11 @@ def test_CI():
 
 @pytest.mark.CI
 def test_CI2():
-    print("\ntest")
+    os.chdir("CI")
+    
+    print("\nJAVA test")
+    os.system("java test" )
+    print("=== java test passed ===")
+
+    os.chdir("..")
+    print(f"curr working dir: {os.getcwd()}")
