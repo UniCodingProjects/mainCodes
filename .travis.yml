@@ -1,4 +1,4 @@
-languages: python
+language: python
 os: linux
 python:
   - "3.7"
