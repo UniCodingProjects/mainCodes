@@ -4,7 +4,7 @@ import pytest
 
 @pytest.mark.CI
 def test_CI():
-    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..\\"))
+    ROOT_DIR = os.path.abspath(os.path.dirname(__file__) + f"{os.sep}..")
     BASE_FOLDERS = ["Alexandrax", "Roman", "Pavel", ".git", ".idea", "CI"]
 
     folders = os.scandir(ROOT_DIR)
