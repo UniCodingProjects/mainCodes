@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+
+int main(){
+    int a;
+    a = 5;
+    print("%d", a);
+    return 0;
+}
