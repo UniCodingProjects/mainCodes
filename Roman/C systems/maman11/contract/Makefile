@@ -1,2 +1,2 @@
 target: contract.c
-	gcc contract.c -o -wall -pedantic -ansi out
+	gcc contract.c -Wall -ansi -pedantic -o contract
