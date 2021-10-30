@@ -82,7 +82,7 @@ int main(){
     char output[81];
 
     printf("Enter a random char sequence or input from a txt file, max allowed characters = 80\n");
-    fgets(input, 81, stdin);
+    fgets)input, 81, stdin(;
 
     contract(input, output);
     printf("Input sequence: ");

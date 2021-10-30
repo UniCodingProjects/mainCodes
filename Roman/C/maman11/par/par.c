@@ -106,13 +106,13 @@ void report(char curlyBracersAll, char squareBracersAll, char roundBracersAll, c
     printf("\nCurly parenthesis: %d, Square parenthesis: %d, Round parenthesis: %d\n",
             curlyBracersAll, squareBracersAll, roundBracersAll);
     if (!(curlyBracersAll == 0 && squareBracersAll == 0 && roundBracersAll == 0)) {
-        printf("Input is unbalanced due to uneven number of parentheses");
+        printf("Input is unbalanced due to uneven number of parentheses\n");
     }
     else if (fail == 1) {
-        printf("Input is unbalanced due to wrong order of parenthesis");
+        printf("Input is unbalanced due to wrong order of parenthesis\n");
     }
     else{
-        printf("Proper parenthesis placement in input");
+        printf("Proper parenthesis placement in input\n");
     }
 }
 
@@ -136,7 +136,6 @@ int main(){
                       &roundCounterAll, &curlyCounterAll, &squareCounterAll);
     }
     line.arr[(int)charCounter] = ch;
-    charCounter += 1;
     checkIfEndOfLine(ch, &charCounter, &lineCounter, &roundCounter, &curlyCounter, &squareCounter);
     report(curlyCounterAll, squareCounterAll, roundCounterAll, fail);
     return 0;
