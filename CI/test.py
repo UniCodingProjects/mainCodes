@@ -5,16 +5,13 @@ import pytest
 @pytest.mark.CI
 def test_CI():
     ROOT_DIR = os.path.abspath(os.path.dirname(__file__) + f"{os.sep}..")
-    BASE_FOLDERS = ["Alexandrax", "Roman", "Pavel", ".git", ".idea", "CI"]
+    BASE_FOLDERS = ["Alexandrax", "Roman", "Pavel", ".git", ".idea", "CI", "MichaelCodes"]
 
-    folders = os.scandir(ROOT_DIR)
-    for folder in folders:
-        if folder.name == ".vscode":
-            continue
-        if os.path.isdir(folder.path):
-            if folder.name not in ["__pycache__", '.pytest_cache']:
-                print(f"testing: {folder.name}")
-                assert folder.name in BASE_FOLDERS
+
+    for folder in BASE_FOLDERS:
+        folders = os.listdir(ROOT_DIR)
+        print(f"testing: {folder}")
+        assert folder in folders
 
 @pytest.mark.CI
 def test_CI2():
