@@ -66,8 +66,8 @@ void fillOutput(char s1[], char s2[], int len){
                 setNonSeqStop(s2,  s1[lastIdx], &outPutIdx, &lastIdx, &i, &sequential);
                 setNonSeqStop(s2,  s1[i], &outPutIdx, &lastIdx, &i, &sequential);
                 continue;
-            }
-            setNonSeqStop(s2,  s1[lastIdx], &outPutIdx, &lastIdx, &i, &sequential);
+            }            setNonSeqStop(s2,  s1[lastIdx], &outPutIdx, &lastIdx, &i, &sequential);
+            continue;
         }
     }
 }
