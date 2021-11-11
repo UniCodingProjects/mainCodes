@@ -10,3 +10,7 @@ build/
 .pytest_cache
 *.pyc
 *.pyo
+
+# c crap
+CMakeLists.txt
+cmake-build-debug/

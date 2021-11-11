@@ -9,14 +9,14 @@ int poW(int num, int p){
     return res;
 }
 
-int len(int num){
+int len(int num, int l){
     int p = 2;
-    while (p < 10){
-        if (poW(10, p) < num){
+    while (p < l){
+        if (poW(l, p) < num){
             p++;
         }
         else{
-            if (p != 9){
+            if (p != l-1){
                 return -1;
             }
             return p;
@@ -24,17 +24,26 @@ int len(int num){
     }
 }
 
-void func(int num){
-    int arr[9];
+int getDivisor(int l){
+    int divisor = 1;
+    while (l > 1){
+        divisor *= 10;
+        l--;
+    }
+    return divisor;
+}
+
+void func(int num, int l){
+    int arr[l];
     int i;
-    int divisor = 100000000;
-    if (len(num) != -1){
-        for (i=0; i<9; i++){
+    int divisor = getDivisor(l);
+    if (len(num, l+1) != -1){
+        for (i=0; i<l; i++){
             arr[i] = num / divisor;
             num = num % divisor;
             divisor = divisor / 10;
         }
-        for (i=0;i<9;i++){
+        for (i=0;i<l;i++){
             printf("num at idx %d is: %d\n", i, arr[i]);
         }
     }
@@ -45,8 +54,9 @@ void func(int num){
 
 void main()
 {
-    printf("Enter a num with 9 digits: ");
+    int l = 9; // expected len
+    printf("Enter a num with %d digits: ", l);
     int num;
     scanf("%d", &num);
-    func(num);
-}
+    func(num, l);
+    }

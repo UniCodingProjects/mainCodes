@@ -225,8 +225,17 @@ class fg:
         #     t2.start()
 
 
-
-
-
 if __name__ == '__main__':
+    file = r"C:\Users\cryos\Documents\Screenshot 2021-05-17 005012.png"
+    with open(file, "rb") as fp:
+        buffer = fp.read()
+
+    with open("bin.bin", "wb+") as fp2:
+        fp2.write(buffer)
+
+    with open("bin.bin", "rb") as biN:
+        buffer2 = biN.read()
+
+    with open("test.png", "wb+") as fp3:
+        fp3.write(buffer2)
     pass
