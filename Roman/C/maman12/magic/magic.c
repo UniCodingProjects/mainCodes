@@ -10,8 +10,8 @@ int main(){
     printMatrix(matrix);
     checkMatrix(matrix, results);
     res = assertResults(results);
-    if (res == 0) printf("Matrix is a magic square, congratulations!");
-    else printf("The given matrix is not a magic square");
+    if (res == 0) printf("Matrix is a magic square, congratulations!\n");
+    else printf("The given matrix is not a magic square\n");
     return 0;
 }
 
@@ -22,8 +22,12 @@ int createMatrix(Matrix m){
     int col = 0;
     int counter = 0;
     printf("Please enter %d numbers for %dx%d matrix: \n", N*N, N, N);
-    while (scanf("%d", &m[row][col]) != 0) {
+    while (scanf("%d", &m[row][col]) != EOF) {
         counter++;
+        if (counter > N*N){
+            printf("Received: >%d, Max: %d, or received non-integer input", counter, N*N);
+            return 1;
+        }
         if (col + 1 == N){
             col = 0;
             row++;
@@ -32,16 +36,12 @@ int createMatrix(Matrix m){
             col++;
         }
     }
-    if (counter > N*N){
-        printf("Received too many values for matrix, received: %d, max allowed: %d", counter, N*N);
-        return 1;
-    }
-    else if (counter < N*N){
-        printf("not enough input numbers for a %dX%d matrix / non integer value received\n", N, N);
+    if (counter < N*N){
+        printf("Received: %d, required: %d, aborting.\n", counter, N*N);
         return 1;
     }
     else{
-        printf("Received proper values for matrix\n");
+        printf("Received proper values for matrix.\n");
     }
     return 0;
 }

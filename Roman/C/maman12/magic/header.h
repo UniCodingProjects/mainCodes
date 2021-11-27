@@ -1,5 +1,5 @@
 /*Matrix size definition*/
-#define N 5
+#define N 10
 
 /*2D array definition*/
 typedef int Matrix[N][N];

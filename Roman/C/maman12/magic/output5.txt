@@ -1,0 +1,12 @@
+Please enter 81 numbers for 9x9 matrix: 
+Received proper values for matrix
+92 67 99 74 1 51 8 58 15 
+17 42 24 49 76 26 83 33 90 
+98 73 80 55 7 57 14 64 16 
+23 48 5 30 82 32 89 39 91 
+4 54 81 56 88 63 20 70 22 
+79 29 6 31 11 38 95 45 97 
+85 60 87 62 19 69 21 71 3 
+10 35 12 37 94 42 96 46 78 
+86 61 93 68 25 75 2 52 9 
+The given matrix is not a magic square
