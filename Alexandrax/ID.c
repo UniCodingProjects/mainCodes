@@ -13,7 +13,7 @@
 //        N = N / 10;
 //    }
 //    for( j = i-1;j > -1; j--){
-//        printf("The digit num  is[%d] =  %d\n", j,arr[j]);
+//        printf("The digxit num  is[%d] =  %d\n", j,arr[j]);
 //    }
 //}
 //int main()
