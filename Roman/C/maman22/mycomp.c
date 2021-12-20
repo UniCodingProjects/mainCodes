@@ -3,14 +3,13 @@
 #include "parser.h"
 
 int main(){
-    Complex A = readComp(0, 0);
-    Complex B = readComp(0, 0);
-    Complex C = readComp(0, 0);
-    Complex D = readComp(0, 0);
-    Complex E = readComp(0, 0);
-    Complex F = readComp(0, 0);
-
-    Complex array[] = {A, B, C, D, E, F};
+    Complex array[6];
+    array[0] = readComp(0, 0);
+    array[1] = readComp(0, 0);
+    array[2] = readComp(0, 0);
+    array[3] = readComp(0, 0);
+    array[4] = readComp(0, 0);
+    array[5] = readComp(0, 0);
 
     /* get input till \n */
     callParser(array);

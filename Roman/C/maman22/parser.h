@@ -1,7 +1,7 @@
 #define CMD_LENGTH 14 /* max command name length */
 
 /* array to hold the commands names */
-char * commands[9][14];
+char * commands[9];
 
 /* check if any extra text left after parsing whole given line */
 int checkForExtraText(char * cmd, int j, int cmdLen);
@@ -20,7 +20,7 @@ char * resetForNextLine(size_t *size, int *cmdLen, int *cmdBegin, int *cmdNum,
 char * contReadLine(int * cmdBegin, int * cmdLen, size_t * size, char * cmd, int * canRun, char curr);
 
 /* check if command name that was received is proper */
-int checkCMD(char * cmds[9][14], char * command);
+int checkCMD(char * cmds[], char * command);
 
 /* check if complex var name is proper A-F */
 int isProperVar(char curr);

@@ -1,0 +1,9 @@
+read_comp A, 5, 5
+read_comp B, -2, 1.4asdsadasdas
+read_comp B, -2, 1.4    asdsadasdas
+read_comp B, -2,,,,,,,,,,,,,,,,,, 1.4
+
+rgergrewg B a
+read_cmp A, 5, 5
+stop asdasdasdasdasasda
+stop

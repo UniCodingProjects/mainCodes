@@ -5,8 +5,12 @@
 #include "complex.h"
 #include "parser.h"
 
-char * commands[9][14] = {"read_comp", "print_comp", "add_comp", "sub_comp", "mult_comp_real",
+/*char * commands[9][14] = {"read_comp", "print_comp", "add_comp", "sub_comp", "mult_comp_real",
+                        "mult_comp_img", "mult_comp_comp", "abs_comp", "stop"};*/
+
+char * commands[9] = {"read_comp", "print_comp", "add_comp", "sub_comp", "mult_comp_real",
                         "mult_comp_img", "mult_comp_comp", "abs_comp", "stop"};
+
 
 void callParser(Complex * array){
     char curr;
@@ -21,10 +25,11 @@ void callParser(Complex * array){
     char *cmd = malloc(size* sizeof(char));
     char command[CMD_LENGTH];
 
-    while ((curr = getchar()) != EOF){
+    while (1) {
+        curr = getchar();
         if (cmdBegin == 0 && curr == ' ') continue;
 
-        if (curr != '\n') {
+        if (curr != '\n' && curr != EOF) {
             cmd = contReadLine(&cmdBegin, &cmdLen, &size, cmd, &canRun, curr);
             continue;
         }
@@ -55,11 +60,13 @@ void callParser(Complex * array){
             if (i != 0) errorHandle(3);
         }
         cmd = resetForNextLine(&size, &cmdLen, &cmdBegin, &cmdNum, &foundCmd, cmd, command, &j); /* reset cmd with malloc - to begin parsing next line */
+        if (curr == EOF) {
+            break;
+        }   
     }
 }
 
 void argsParser(int cmdNum, int * j, int cmdLen, char * cmd, Complex * array){
-    printf("parsing: %s, cmd#: %d\n", cmd, cmdNum);
     char var1;
     char var2;
     double num1;
@@ -307,6 +314,7 @@ int checkForExtraText(char * cmd, int j, int cmdLen){
 int checkForExtraCommas(char * cmd, int cmdLen, int cmdNum, char c){
     int maxAllowed = 0;
     int j = 0;
+    int commaCount = 0;
     switch (cmdNum){
         case 0:
             maxAllowed = 2;
@@ -336,7 +344,6 @@ int checkForExtraCommas(char * cmd, int cmdLen, int cmdNum, char c){
             maxAllowed = 0;
             break;
     }
-    int commaCount = 0;
     for (;j < cmdLen; j++){
         if (cmd[j] == ',') commaCount++;
     }
@@ -397,10 +404,10 @@ void runCMD(int num, Complex num1, Complex num2, double real, double imag){
     }
 }
 
-int checkCMD(char * cmds[9][14], char * command){
+int checkCMD(char * cmds[], char * command){
     int i;
     for (i = 0; i < 9; i++){
-        if (strstr(command, cmds[0][i])){
+        if (strstr(command, cmds[i])){
             return i;
         }
     }

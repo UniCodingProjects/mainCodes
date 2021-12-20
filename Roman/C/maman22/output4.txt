@@ -1,0 +1,18 @@
+Received command: read_comp A, 5, 5
+Received command: read_comp B, -2, 1.4asdsadasdas
+Invalid parameter – not a number
+Received command: read_comp B, -2, 1.4    asdsadasdas
+Extraneous text after end of command
+Received command: read_comp B, -2,,,,,,,,,,,,,,,,,, 1.4
+Multiple consecutive commas
+Received command: 
+Undefined command name
+Received command: rgergrewg B a
+Undefined command name
+Received command: read_cmp A, 5, 5
+Undefined command name
+Received command: stop asdasdasdasdasasda
+Extraneous text after end of command
+Received command: stop
+Received stop command - thanks for using complex calculator
+exiting...
