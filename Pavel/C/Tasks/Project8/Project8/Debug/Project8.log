@@ -1,0 +1,4 @@
+﻿  Q9_3-while.c
+C:\Users\fabel\source\repos\Project8\Project8\Q9_3-while.c(12,6): warning C4013: 'gets' undefined; assuming extern returning int
+C:\Users\fabel\source\repos\Project8\Project8\Q9_3-while.c(20,8): warning C4101: 'pointSent': unreferenced local variable
+  Project8.vcxproj -> C:\Users\fabel\source\repos\Project8\Debug\Project9.exe
