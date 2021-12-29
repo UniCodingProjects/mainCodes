@@ -1,0 +1,27 @@
+Received command: read_comp A, 5, 5
+Received command: read_comp B, -2, 1.4
+Received command: read_comp C, 3, -4.2
+Received command: read_comp D, 10, -4
+Received command: print_comp A
+5.00 + (5.00)i
+Received command: print_comp B
+-2.00 + (1.40)i
+Received command: mult_comp_comp A, B
+-17.00 + (-3.00)i
+Received command: mult_comp_comp C, D
+13.20 + (-54.00)i
+Received command: mult_comp_real A, 5
+25.00 + (25.00)i
+Received command: mult_comp_img C, -4
+-16.80 + (-12.00)i
+Received command: abs_comp A
+7.07
+Received command: abs_comp B
+2.44
+Received command: add_comp A, C
+8.00 + (0.80)i
+Received command: sub_comp D, C
+7.00 + (0.20)i
+Received command: stop
+Received stop command - thanks for using complex calculator
+exiting...

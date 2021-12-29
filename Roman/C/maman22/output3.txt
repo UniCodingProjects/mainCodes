@@ -1,0 +1,29 @@
+Received command: read_comp A, 5, 5
+Received command: read_comp B, -2, 1.4
+Received command: read_comp C, 3, -4.2
+Received command: read_comp G, 10, -4
+Undefined complex variable
+Received command: print_comp A
+5.00 + (5.00)i
+Received command: print_comp T
+Undefined complex variable
+Received command: mult_comp_comp A B
+Missing comma
+Received command: mult_comp_comp
+Missing parameter
+Missing parameter
+Received command: mult_comp_real A, 5
+25.00 + (25.00)i
+Received command: mult_comp_img C,,, -4
+Multiple consecutive commas
+Received command: abs_comp
+Missing parameter
+Received command: abs_comp B werfer ger ger ger greg erg erg erg er ger ger
+Extraneous text after end of command
+Received command: add_comp, A C
+8.00 + (0.80)i
+Received command: sub_comp D, C
+-3.00 + (4.20)i
+Received command: stop
+Received stop command - thanks for using complex calculator
+exiting...
