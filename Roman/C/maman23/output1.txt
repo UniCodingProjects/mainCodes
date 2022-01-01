@@ -1,0 +1,7 @@
+looking for char at idx: 4
+==================
+found file: input.txt
+pointer at: 3 (due to zero based n-1)
+ASCII representation is: 65
+==================
+Done, exiting.
