@@ -1,0 +1,19 @@
+looking for char at idx: 3
+==================
+found file: input.txt
+pointer at: 2 (due to zero based n-1)
+ASCII representation is: 65
+==================
+No file found: ewfewrf
+==================
+found file: input2.txt
+pointer at: 2 (due to zero based n-1)
+ASCII representation is: 68
+==================
+No file found: gbergre
+==================
+found file: input3.txt
+pointer at: 2 (due to zero based n-1)
+ASCII representation is: 105
+==================
+Done, exiting.

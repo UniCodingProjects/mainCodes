@@ -1,0 +1,17 @@
+looking for char at idx: 4
+==================
+found file: input.txt
+pointer at: 3 (due to zero based n-1)
+ASCII representation is: 65
+==================
+found file: input2.txt
+pointer at: 3 (due to zero based n-1)
+ASCII representation is: 68
+==================
+No file found: weqfewfg
+==================
+No file found: wefwe
+==================
+No file found: we
+==================
+Done, exiting.

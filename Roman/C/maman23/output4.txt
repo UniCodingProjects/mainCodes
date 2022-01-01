@@ -1,0 +1,5 @@
+looking for char at idx: 10000
+==================
+file length is: 5 smaller than given idx: 10000
+==================
+Done, exiting.

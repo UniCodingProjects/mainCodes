@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* min args allowed*/
 #define MIN_ARGS 3
