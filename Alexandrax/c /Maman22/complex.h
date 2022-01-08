@@ -22,15 +22,15 @@ typedef struct n{
 complex * complex_constructor();
 
 /* The function return the index where there is the nearest comma starting from the index that sent to the function */
-int white_comma(char parameteres[], int lastIndex);
+int is_comma(char parameteres[], int lastIndex);
 
 /**/
-int white_number(char parameteres[], int lastIndex, int before);
+int is_number(char parameteres[], int lastIndex, int before);
 
 /*
 
 */
-int white_comp(char parameteres[], int lastIndex, int before);
+int is_comp(char parameteres[], int lastIndex, int before);
 
 /* run the function acording to what the user entered */
 void run_function(char *, char command[Max_line],complex *comp[6]);

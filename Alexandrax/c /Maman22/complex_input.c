@@ -48,7 +48,7 @@ int check_rest(char parameters[], int lastIndex)
 * if there is a tab that is not white an error will show and the function return ERROR
 * The function get an array of char and an int.
 */
-int white_comma(char parameters[], int lastIndex)
+int is_comma(char parameters[], int lastIndex)
 {
     if(parameters==NULL)
         printf("Missing comma\n");
@@ -97,9 +97,9 @@ int white_comma(char parameters[], int lastIndex)
 
 /**
 * Returns the index in which the string number appears,if no number appears it will print the appropriate error
-* the int befor is to know if there was a comma before and print the appropriate error.
+* the int before is to know if there was a comma before and print the appropriate error.
 **/
-int white_number(char parameters[], int lastIndex, int before)
+int is_number(char parameters[], int lastIndex, int before)
 {
     float parameter;
     char *rest;
@@ -168,10 +168,7 @@ int white_number(char parameters[], int lastIndex, int before)
     return ERROR;
 }
 
-/*
-*
-*/
-int white_comp(char parameters[], int lastIndex, int before)
+int is_comp(char parameters[], int lastIndex, int before)
 {
     if (parameters == NULL){
         printf("Missing parameter\n");
@@ -186,7 +183,6 @@ int white_comp(char parameters[], int lastIndex, int before)
 
                     printf("Missing parameter\n");
                     return ERROR;
-                    break;
 
                     case ',':
 
@@ -195,7 +191,6 @@ int white_comp(char parameters[], int lastIndex, int before)
                         else
                             printf("ERROR :Comma not needed\n");
                         return ERROR;
-                        break;
 
                         case EOF:
 

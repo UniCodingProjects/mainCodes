@@ -1,15 +1,15 @@
 /**
- * The program reads commands from the standard input, decodes And performs them.
+ * The program reads commands from the standard input, decodes and performs them.
  *  The commands deal with arithmetic operations on complex numbers.
  *  In this program, the input line is assumed to be less than 100.
- *  If the program reads an incorrect input line it will print the appropriate error/
- * */
+ *  If the program reads an incorrect input line it will print the appropriate error
+ **/
 #include "complex.h"
 
 int main()
 {
-    char *command=(char *)malloc(sizeof(char));
-    char parameters[Max_line];/* the kine from the user */
+    char *command=(char *)malloc(sizeof(char));//TODO need to check malloc;
+    char parameters[Max_line];/* the line from the user */
     char ** input; /* for the return value from the function "return_command"*/
 
     complex *comp[Num_Of_Comp];
@@ -64,22 +64,16 @@ complex* return_comp(char parameters[Max_line],complex *comp[6],int lastIndex)
     {
         case 'A':
             return comp[0];
-            break;
             case 'B':
                 return comp[1];
-                break;
                 case 'C':
                     return comp[2];
-                    break;
                     case 'D':
                         return comp[3];
-                        break ;
                         case 'E':
                             return comp[4];
-                            break;
                             default:
                                 return comp[5];
-                                break;
     }
 }
 
@@ -98,20 +92,20 @@ void run_function(char parameters[Max_line], char *command, complex *comp[6])
         /*if the command is read_comp */
         if(strcmp(command,"read_comp")==0)
         {
-            var1=white_comp(parameters,0,0);/* the index where there is a complex in the string*/
+            var1=is_comp(parameters,0,0);/* the index where there is a complex in the string*/
             if(var1!=ERROR)
             {
-                comma1=white_comma(parameters,(var1+1));/* the index where there is a comma in the string*/
+                comma1=is_comma(parameters,(var1+1));/* the index where there is a comma in the string*/
                 if(comma1!=ERROR)
                 {
-                    var2=white_number(parameters,(comma1+1),1);/* the index where there is a number in the string*/
+                    var2=is_number(parameters,(comma1+1),1);/* the index where there is a number in the string*/
                     if(var2!=ERROR)
                     {
                         x=strtod(parameters+comma1+1,&temp);/* the number that show after the comma*/
-                        comma2=white_comma(temp,0);/* the index where there is a comma in the string checking in temp*/
+                        comma2=is_comma(temp,0);/* the index where there is a comma in the string checking in temp*/
                         if(comma2!=ERROR)
                         {
-                            var3=white_number(temp,(comma2+1),1);/* the index where there is a number in the string*/
+                            var3=is_number(temp,(comma2+1),1);/* the index where there is a number in the string*/
                             if(var3!=ERROR)
                             {
                                 y=strtod(temp+comma2+1,&temp);/* the number that show after the second comma*/
@@ -130,7 +124,7 @@ void run_function(char parameters[Max_line], char *command, complex *comp[6])
         /* if the command is print_comp*/
         else if(strcmp(command,"print_comp")==0)
         {
-            var1=white_comp(parameters,0,0);/* the index where there is a complex in the string*/
+            var1=is_comp(parameters,0,0);/* the index where there is a complex in the string*/
             if(var1!=ERROR)
             {
                 check=check_rest(parameters,var1+1);/* check if there are nothing after the command*/
@@ -144,13 +138,13 @@ void run_function(char parameters[Max_line], char *command, complex *comp[6])
         /* if the command is add_comp , sub_comp or mult_comp_comp*/
         else if(strcmp(command, "add_comp")==0 || strcmp(command,"sub_comp")==0||strcmp(command, "mult_comp_comp")==0)
         {
-            var1=white_comp(parameters,0,0);/* the index where there is a complex in the string*/
+            var1=is_comp(parameters,0,0);/* the index where there is a complex in the string*/
             if(var1!=ERROR)
             {
-                comma1=white_comma(parameters,var1+1);/* the index where there is a comma in the string*/
+                comma1=is_comma(parameters,var1+1);/* the index where there is a comma in the string*/
                 if(comma1!=ERROR)
                 {
-                    var2=white_comp(parameters,comma1+1,1);/* the index where there is a complex in the string*/
+                    var2=is_comp(parameters,comma1+1,1);/* the index where there is a complex in the string*/
                     if(var2!=ERROR)
                     {
                         check=check_rest(parameters,var2+1);/* check if there are nothing after the command*/
@@ -175,13 +169,13 @@ void run_function(char parameters[Max_line], char *command, complex *comp[6])
         /*if the command is mult_comp or mult_comp_img*/
         else if(strcmp(command, "mult_comp_real")==0||strcmp( command,"mult_comp_img")==0)
         {
-            var1=white_comp(parameters,0,0);/* the index where there is a complex in the string*/
+            var1=is_comp(parameters,0,0);/* the index where there is a complex in the string*/
             if(var1!=ERROR)
             {
-                comma1=white_comma(parameters,var1+1);/* the index where there is a comma */
+                comma1=is_comma(parameters,var1+1);/* the index where there is a comma */
                 if(comma1!=ERROR)
                 {
-                    var2=white_number(parameters,comma1+1,1);/* the index where there is a number in the string*/
+                    var2=is_number(parameters,comma1+1,1);/* the index where there is a number in the string*/
                     if(var2!=ERROR)
                     {
                         y=strtod(parameters+(comma1+1),&temp);/* the number that show after the comma*/
@@ -203,7 +197,7 @@ void run_function(char parameters[Max_line], char *command, complex *comp[6])
         /* if the command is abs_comp */
         else if(strcmp(command,"abs_comp")==0)
         {
-            var1=white_comp(parameters,0,0);/* the index where there is an complex in the string*/
+            var1=is_comp(parameters,0,0);/* the index where there is an complex in the string*/
             check=check_rest(parameters,var1+1);/* check if there are nothing after the command*/
             if(var1!=ERROR && check!=ERROR)
             {
