@@ -63,17 +63,17 @@ complex* return_comp(char parameters[Max_line],complex *comp[6],int lastIndex)
     switch(parameters[lastIndex])
     {
         case 'A':
-        return comp[0];
+            return comp[0];
         case 'B':
-        return comp[1];
+            return comp[1];
         case 'C':
-        return comp[2];
+            return comp[2];
         case 'D':
-        return comp[3];
+            return comp[3];
         case 'E':
-        return comp[4];
+            return comp[4];
         default:
-        return comp[5];
+            return comp[5];
     }
 }
 
